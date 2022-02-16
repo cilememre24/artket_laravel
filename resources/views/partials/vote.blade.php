@@ -8,7 +8,8 @@
                 </button>
             </div>
             <div class="modal-body" style="text-align: center">
-                <form  action="" method="post" enctype="multipart/form-data">
+                <form  action="{{ route('vote',['id' => $post['id']])}}" method="post" enctype="multipart/form-data">
+                    @csrf
                     <input type="text" name="vote_num" class="knob" data-thickness="0.2" data-angleArc="250" data-angleOffset="-125"
                     value="100" data-width="100" data-height="60" data-fgColor="#aaaaaa">
                     {{-- <hr> --}}

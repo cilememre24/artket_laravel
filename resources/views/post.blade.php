@@ -4,6 +4,7 @@
 	<head>
         @include('navbar')
         @include('partials.vote')
+        @include('partials.scripts')
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
         <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
@@ -31,31 +32,54 @@
 
                             <header>
                                 <div class="title">
-                                    <h2><a href="#">{{ $post['title'] }} (VOTE: VOTE%)</a></h2>
+                                    <h2><a href="#">{{ $post['title'] }} (VOTE: {{ $vote }}%)</a></h2>
                                     <p>{{ $post['description'] }}</p>
                                 </div>
                                 <div class="meta">
-                                    <time class="published" datetime="2015-11-01">November 1, 2015</time>
+                                    <time class="published" datetime="2015-11-01">  {{ $post['created_at']}}</time>
                                     <a onclick="location.href='PROFILE'" class="author"><span class="name">{{ $user['username'] }}</span><img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80" alt="" /></a>
                                 </div>
                             </header>
 
                             <a href="#" class="image featured"><img src="\{{ $post['image_path'] }}" alt="" /></a>
-                            <p>The various visual arts exist within a continuum that ranges from purely aesthetic purposes at one end to purely utilitarian purposes at the other. Such a polarity of purpose is reflected in the commonly used terms artist and artisan, the latter understood as one who gives considerable attention to the utilitarian. This should by no means be taken as a rigid scheme, however. </p>
+                                                            
+                            @if($post['type']=='text')
+                                    @foreach($text_post as $tp)
+                                        {{-- <div>{!! Str::limit($tp['context'], 60) !!}</div>  --}}
+                                        <div style="max-height: 98px; overflow:hidden;">
+                                        {!! $tp['context'] !!}
+                                         </div>
+                                    @endforeach
+                                    ...
+                            @endif   
+                            
                             <footer class="post_footer">
                                 <ul class="actions">
-                                    <li><a onclick="location.href='{{ route('post_next', ['id' => $post['id']])}}'" class="button large">Continue Reading</a></li>
+                                    @if($post['type']=='text')
+                                        <li><a onclick="location.href='{{ route('post_next', ['id' => $post['id']])}}'" class="button large">Continue Reading</a></li>
+                                    @endif
                                 </ul>
                                 <ul class="actions">
                                     <li><a onclick="makeVisible('comments')" class="button medium">Show Comments</a></li>
                                 </ul>
+                                @if($is_voted==true)
+                                    <ul class="actions disabled">
+                                        <a class="button medium"
+                                        style="cursor: pointer;background:rgb(194, 80, 80)"
+                                        data-toggle="modal"
+                                        data-target="#voteModal">{{ __('Vote') }}</a>
+                                        <li></li>
+                                    </ul>
+                                @else
                                 <ul class="actions">
                                     <a class="button medium"
-                                    style="cursor: pointer;"
+                                    style="cursor: pointer;background:rgb(95, 158, 95)"
                                     data-toggle="modal"
                                     data-target="#voteModal">{{ __('Vote') }}</a>
                                     <li></li>
                                 </ul>
+                                @endif
+
                                 <ul class="stats">
                                     <li><a href="#">Text</a></li>
                                 </ul>
@@ -63,33 +87,8 @@
                         </article>
                     </form>
 
-                    {{-- <article  id="vote" style="visibility: hidden;padding-top:10px;" class="post">
-
-                        <div class="row">
-                            <div class="col-md-12">
-    
-                                <div class="card my-4">
-                                
-                                    <div class="card-body">
-                                        <form  action="" method="post" enctype="multipart/form-data">
-                                            <input type="text" name="vote_num" class="knob" data-thickness="0.2" data-angleArc="250" data-angleOffset="-125"
-                                            value="100" data-width="100" data-height="60" data-fgColor="#924219">
-                                            <hr>
-                                            <input type="submit" name="vote" value="Vote" style="background-color:#924219;color:white;" class="btn d-flex flex-row icons d-flex align-items-center">
-                                        </form>
-                                    </div>
-    
-                                </div>
-                            </div>
-                
-                        </div>
-                    </article> --}}
 
                 <article  id="comments" style="visibility: hidden;padding-top:10px;" class="post">
-
-                                {{-- YORUM YAPAN USERLARI BUL POST İDLER EŞLEŞİYOR COMMENTS TABLOSUYLA
-                                        USER TABLOSUNDAN DA YORUMU YAPAN KİŞİNİN BİLGİLERİNİ GETİR --}}
-
                                 <div class="row">
                                     <div class="col-md-12">
 
@@ -124,33 +123,27 @@
 
                         </div>
 					</div>
+                    
                 </nav>
             </div>
         </section>
 
-
-		 <!-- Scripts -->
-         <script src="{{ asset('js/jquery.min.js') }}"></script>
-         <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-         <script src="{{ asset('js/jquery.knob.min.js') }}"></script>
-             <script src="{{ asset('js/browser.min.js') }}"></script>
-             <script src="{{ asset('js/breakpoints.min.js') }}"></script>
-             <script src="{{ asset('js/util.js') }}"></script>
-             <script src="{{ asset('js/main.js') }}"></script>
 
 
         <script>
             function makeVisible(id){
                 var x = document.getElementById(id);
                 
-  if (x.style.visibility === 'hidden') {
-    x.style.visibility = 'visible';
-  } else {
-    x.style.visibility = 'hidden';
-  }
+                if (x.style.visibility === 'hidden') {
+                    x.style.visibility = 'visible';
+                } else {
+                    x.style.visibility = 'hidden';
+                }
 
             }
         </script>
 
 	</body>
 </html>
+
+

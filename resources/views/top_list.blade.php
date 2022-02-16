@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     @include('navbar')
+    @include('partials.scripts')
   	<title>Top List</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -88,11 +89,6 @@
     @endforeach
         </div>
 	</section>
-
-  <script src="js/jquery.min.js"></script>
-    <script src="js/popper.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/main.js"></script>
 
     <script>
         window.console = window.console || function(t) {};

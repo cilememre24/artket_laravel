@@ -1,7 +1,12 @@
 @import url(fontawesome-all.min.css);
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Raleway:400,800,900");
 
-
+.disabled {
+	pointer-events: none;
+	cursor: default;
+	opacity: 0.6;
+  }
+  
 #comments{
 	background-color:#aaaaaa;
 }
@@ -2374,6 +2379,7 @@ input, select, textarea {
 			}
 
 		.post > .post_footer {
+			padding: 2.75em 2em 1.75em 2em;
 			display: -moz-flex;
 			display: -webkit-flex;
 			display: -ms-flex;
@@ -2385,6 +2391,7 @@ input, select, textarea {
 		}
 
 			.post > .post_footer .actions {
+				overflow:auto;
 				-moz-flex-grow: 1;
 				-webkit-flex-grow: 1;
 				-ms-flex-grow: 1;

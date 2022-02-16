@@ -9,4 +9,5 @@ class PostModel extends Model
 {
     use HasFactory;
     protected $table="posts";
+    protected $fillable = ["title","description","is_spam","user_id","image_path","image_size","type"];
 }

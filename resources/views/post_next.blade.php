@@ -4,6 +4,7 @@
 	<head>
         @include('navbar')
         @include('partials.vote')
+		@include('partials.scripts')
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 
@@ -15,7 +16,10 @@
         <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 	</head>
 	<body class="single is-preload">
-
+		<section class="ftco-section">
+			<div class="container">
+				<nav class="navbar navbar-expand-lg ftco_navbar ftco-navbar-light" style="height:max-content;" id="ftco-navbar">
+	
 		<!-- Wrapper -->
 			<div id="wrapper">
 
@@ -25,43 +29,107 @@
 							<article class="post">
 								<header>
 									<div class="title">
-										<h2><a href="#">title</a></h2>
-										<p>description</p>
+										<h2><a href="#">{{ $post['title'] }}</a></h2>
+										<p>{{ $post['description'] }}</p>
 									</div>
 									<div class="meta">
-										<time class="published" datetime="2015-11-01">November 1, 2015</time>
-										<a onclick="location.href='profile.php?username=username'" class="author"><span class="name">cilememre</span><img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80" alt="" /></a>
+										<time class="published" datetime="2015-11-01">{{ $post['created_at'] }}</time>
+										<a onclick="location.href='profile.php?username=username'" class="author"><span class="name">{{ $user['username'] }}</span><img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80" alt="" /></a>
 									</div>
 								</header>
 								<span class="image featured"><img src="images/pic01.jpg" alt="" /></span>
-								<p>The various visual arts exist within a continuum that ranges from purely aesthetic purposes at one end to purely utilitarian purposes at the other. Such a polarity of purpose is reflected in the commonly used terms artist and artisan, the latter understood as one who gives considerable attention to the utilitarian. This should by no means be taken as a rigid scheme, however. Even within one form of art, motives may vary widely; thus a potter or a weaver may create a highly functional work that is at the same time beautiful—a salad bowl, for example, or a blanket—or may create works that have no purpose beyond being admired. In cultures such as those of Africa and Oceania, a definition of art that encompasses this continuum has existed for centuries. In the West, however, by the mid-18th century the development of academies for painting and sculpture established a sense that these media were “art” and therefore separate from more utilitarian media. This separation of art forms continued among art institutions until the late 20th century, when such rigid distinctions began to be questioned.</p>
+								@foreach($text_post as $tp)
+                                {!! $tp['context'] !!}
+                            	@endforeach
 								<footer class="post_footer">
-                                    <ul class="actions">
-                                        <li><a onclick="makeVisible('comments')" class="button medium">Show Comments</a></li>
-                                    </ul>
-                                    <ul class="actions">
+									<ul class="actions">
+										<li><a onclick="location.href='{{ route('go_to_post', ['id' => $post['id']])}}'" class="button large">Return the post</a></li>
+									</ul>
+									<ul class="actions">
+										<li><a onclick="makeVisible('comments')" class="button medium">Show Comments</a></li>
+									</ul>
+									@if($is_voted==true)
+                                    <ul class="actions disabled">
                                         <a class="button medium"
-                                        style="cursor: pointer;"
+                                        style="cursor: pointer;background:rgb(194, 80, 80)"
                                         data-toggle="modal"
                                         data-target="#voteModal">{{ __('Vote') }}</a>
                                         <li></li>
                                     </ul>
+                                @else
+                                <ul class="actions">
+                                    <a class="button medium"
+                                    style="cursor: pointer;background:rgb(95, 158, 95)"
+                                    data-toggle="modal"
+                                    data-target="#voteModal">{{ __('Vote') }}</a>
+                                    <li></li>
+                                </ul>
+                                @endif
                                     <ul class="stats">
                                         <li><a href="#">Text</a></li>
                                     </ul>
                                 </footer>
 							</article>
-</form>
+							</form>
+
+							<article  id="comments" style="visibility: hidden;padding-top:10px;" class="post">
+
+								{{-- YORUM YAPAN USERLARI BUL POST İDLER EŞLEŞİYOR COMMENTS TABLOSUYLA
+										USER TABLOSUNDAN DA YORUMU YAPAN KİŞİNİN BİLGİLERİNİ GETİR --}}
+
+								<div class="row">
+									<div class="col-md-12">
+
+										<!-- Fetch Comments -->
+										<div class="card my-4">
+											{{-- <h5 class="card-header">Comments <span class="badge badge-dark"></span></h5> --}}
+											<div class="card-body">
+												<form method="post" action="{{ route('make_comment', ['id' => $post['id']])}}" enctype="multipart/form-data">
+													@csrf
+												<textarea placeholder="Add a new comment..." name="comment" class="form-control"></textarea>
+												<input style="float: right;" type="submit" name="submit" class="btn btn-dark mt-2" />
+												</form>
+											</div>
+											<hr/>
+											<div class="card-body">
+												@foreach($comments as $comment)
+												<blockquote class="blockquote">
+													<div><div d-flex flex-row mb-2><img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80" width="40" style="border-radius:50px;margin-right:20px;float: left;">
+													<div style="font-weight:bold;" class="d-flex flex-row"><small>cilememre</small> </div></div>
+													<p class="d-flex content">{{ $comment['content'] }}</p></div>
+													<footer class="blockquote-footer" style="float: right;">{{ $comment['created_at'] }}</footer>
+												</blockquote>
+												<hr/>
+												@endforeach
+											</div>
+
+										</div>
+									</div>
+
+								</div>
+							</article>
 					</div>
 
 			</div>
 
-		 <!-- Scripts -->
-        <script src="{{ asset('js/jquery.min.js') }}"></script>
-        <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-			<script src="{{ asset('js/browser.min.js') }}"></script>
-			<script src="{{ asset('js/breakpoints.min.js') }}"></script>
-			<script src="{{ asset('js/util.js') }}"></script>
-			<script src="{{ asset('js/main.js') }}"></script>
+		</nav>
+	</div>
+</section>
+
+
 	</body>
 </html>
+
+
+<script>
+	function makeVisible(id){
+		var x = document.getElementById(id);
+		
+		if (x.style.visibility === 'hidden') {
+			x.style.visibility = 'visible';
+		} else {
+			x.style.visibility = 'hidden';
+		}
+
+	}
+</script>
