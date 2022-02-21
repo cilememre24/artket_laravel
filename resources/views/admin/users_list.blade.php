@@ -7,7 +7,15 @@
         <div class="col-md-12">
           <div class="card">
             <div class="card-header">
-              <h4 class="card-title"> Users</h4>
+              @if($label == '1')
+              <h4 class="card-title"> Admins</h4>
+              @endif
+              @if($label == '2')
+              <h4 class="card-title"> Artists</h4>
+              @endif
+              @if($label == '3')
+              <h4 class="card-title"> Endustry Professionals</h4>
+              @endif
             </div>
             <div class="card-body">
               <div class="table-responsive">
@@ -48,10 +56,16 @@
                             {{ $user->last_name }}
                         </td>
                         <td>
-                            {{ $user->gender }}
+                          @if($user->gender == 1)
+                            Female
+                          @endif
+                          @if($user->gender == 2)
+                          Male
+                        @endif
                         </td>
                         <td class="text-right">
-                            DELETE
+                          <input type="submit" name="delete" value="Update"></input>
+                          <input type="submit" name="delete" value="Delete"></input>
                         </td>
 
                         </tr>

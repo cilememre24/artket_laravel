@@ -25,7 +25,7 @@ class UserManagementController extends Controller
             ->where('roles.label', '=', $label) 
             ->get();
 
-        return view('admin/users_list',['users' => $users]);
+        return view('admin/users_list',['users' => $users, 'label' => $label]);
     }
 
     public function get_create_form($label){

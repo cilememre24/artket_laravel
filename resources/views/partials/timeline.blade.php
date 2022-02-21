@@ -1,6 +1,8 @@
 <!-- background-image: url("upload/images/Abstract-Art-Logo-Design.png"); -->
+
 <section class="cd-timeline js-cd-timeline">
-    <div class="container max-width-lg cd-timeline__container">
+    <div class="max-width-lg cd-timeline__container">
+
     <div class="cd-timeline__block">
         <div class="cd-timeline__img cd-timeline__img--picture">
         <!-- <img src="assets/img/cd-icon-picture.svg" alt="Picture"> -->
@@ -12,11 +14,11 @@
 
         <div class="flex justify-between items-center">
             <span class="cd-timeline__date">Jan 14</span>
-            <a href="#0" class="btn btn--subtle">Read more</a>
+            <a href="#0" class="btn btn--subtle">View Post</a>
         </div>
         </div> <!-- cd-timeline__content -->
     </div> <!-- cd-timeline__block -->
-
+    
     <div class="cd-timeline__block">
         <div class="cd-timeline__img cd-timeline__img--movie">
         <!-- <img src="assets/img/cd-icon-movie.svg" alt="Movie"> -->
@@ -47,7 +49,7 @@
         <h2>Image Title</h2>
         <!-- <p class="color-contrast-medium">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi, obcaecati, quisquam id molestias eaque asperiores voluptatibus cupiditate error assumenda delectus odit similique earum voluptatem doloremque dolorem ipsam quae rerum quis. Odit, itaque, deserunt corporis vero ipsum nisi eius odio natus ullam provident pariatur temporibus quia eos repellat consequuntur perferendis enim amet quae quasi repudiandae sed quod veniam dolore possimus rem voluptatum eveniet eligendi quis fugiat aliquam sunt similique aut adipisci.</p> -->
 <div class="card" style="margin-bottom: 10px;">
-<img src="upload\images\arkhe-sanat-akademisi-resim-is-ogretmenligi-01.jpg" alt="Picture">
+<img src="../upload/images/arkhe-sanat-akademisi-resim-is-ogretmenligi-01.jpg" alt="Picture">
 </div>
         <div class="flex justify-between items-center">
             <span class="cd-timeline__date">Jan 24</span>
@@ -76,8 +78,7 @@
         </div> <!-- cd-timeline__content -->
     </div> <!-- cd-timeline__block -->
 
-        </div> <!-- cd-timeline__content -->
-    </div> <!-- cd-timeline__block -->
-    </div>
+    </div> <!-- cd-timeline__content -->
+
 </section> <!-- cd-timeline -->
     

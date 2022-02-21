@@ -37,7 +37,7 @@
                                 </div>
                                 <div class="meta">
                                     <time class="published" datetime="2015-11-01">  {{ $post['created_at']}}</time>
-                                    <a onclick="location.href='PROFILE'" class="author"><span class="name">{{ $user['username'] }}</span><img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80" alt="" /></a>
+                                    <a href='{{ route('profile',['id' => $user['id'] ])}}' class="author"><span class="name">{{ $user['username'] }}</span><img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80" alt="" /></a>
                                 </div>
                             </header>
 

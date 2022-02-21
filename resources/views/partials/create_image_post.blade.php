@@ -7,11 +7,9 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 
     <link href='//netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css' rel='stylesheet'/>
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/create_post.css') }}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-
+    <link rel="stylesheet" href="{{ asset('css/create_post.css') }}">
   </head>
   <body>
 
@@ -27,7 +25,8 @@
 
     <div class="row d-flex justify-content-center align-items-center">
         <div class="col-md-8">
-            <form id="regForm" action="" method="post" enctype="multipart/form-data">
+            <form id="regForm" action="{{ route('create_post', ['type' => 'image'])}}" method="post" enctype="multipart/form-data">
+                @csrf
                 <div class="all-steps" id="all-steps"> <span class="step"><i class="fa fa-header"></i></span> <span class="step"><i class="fa fa-align-justify"></i></span> <span class="step"><i class="fa fa-picture-o"></i></span></div>
                 <div class="tab">
                     <h6>Enter the title</h6>
@@ -55,59 +54,6 @@
 
 </div>
 
-<script>
-
-    var currentTab = 0;
-    document.addEventListener("DOMContentLoaded", function(event) {
-
-
-    showTab(currentTab);
-
-    });
-
-    function showTab(n) {
-    var x = document.getElementsByClassName("tab");
-    x[n].style.display = "block";
-    if (n == 0) {
-    document.getElementById("prevBtn").style.display = "none";
-    } else {
-    document.getElementById("prevBtn").style.display = "inline";
-    }
-    if (n == (x.length - 1)) {
-    document.getElementById("nextBtn").innerHTML = '<i class="fa fa-arrow-right"></i>';
-    } else {
-    document.getElementById("nextBtn").innerHTML = '<i class="fa fa-arrow-right"></i>';
-
-
-    }
-    fixStepIndicator(n)
-    }
-
-    function nextPrev(n) {
-    var x = document.getElementsByClassName("tab");
-    if (n == 1 && !validateForm()) return false;
-    x[currentTab].style.display = "none";
-    currentTab = currentTab + n;
-    if (currentTab >= x.length) {
-
-    document.getElementById("nextprevious").style.display = "none";
-    document.getElementById("all-steps").style.display = "none";
-    document.getElementById("register").style.display = "none";
-    document.getElementById("text-message").style.display = "block";
-
-
-    }
-    showTab(currentTab);
-    }
-
-    function validateForm() {
-    var x, y, i, valid = true;
-    x = document.getElementsByClassName("tab");
-    y = x[currentTab].getElementsByTagName("input");
-    for (i = 0; i < y.length; i++) { if (y[i].value=="" ) { y[i].className +=" invalid" ; valid=false; } } if (valid) { document.getElementsByClassName("step")[currentTab].className +=" finish" ; } return valid; } function fixStepIndicator(n) { var i, x=document.getElementsByClassName("step"); for (i=0; i < x.length; i++) { x[i].className=x[i].className.replace(" active", "" ); } x[n].className +=" active" ; }
-
-
-  </script>
 
   </body>
 

@@ -9,15 +9,33 @@ use App\Models\TextPostModel;
 use App\Models\ImagePostModel;
 use App\Models\VideoPostModel;
 use App\Models\AudioPostModel;
+use App\Models\RelationshipModel;
 
 class ProfileController extends Controller
 {
-    public function index(){
+    public function index($id){
         $current_user_id = session('current_user_id');
 
-        $user=UserModel::find($current_user_id);
+        $user=UserModel::find($id);
 
-        return view('profile',['user' => $user]);
+        //total number of posts
+        $num_of_posts=PostModel::where("user_id",$id)->count();
+
+        //number of followers
+        $num_of_followers= RelationshipModel::where("following_id",$id)->count();
+
+        //number of following
+        $num_of_following = RelationshipModel::where("follower_id", $id)->count();
+
+        $relationship = RelationshipModel::where('follower_id', $current_user_id)->where('following_id',$id)->get();
+
+        if($relationship->isEmpty()){
+            $is_follower=0;    
+        }else{
+            $is_follower=1;
+        }
+
+        return view('profile',['user' => $user ,'current_user_id'=>$current_user_id, 'num_of_posts' =>  $num_of_posts , 'num_of_followers'=> $num_of_followers , 'num_of_following'=> $num_of_following ,'is_follower'=>$is_follower] );
     }
 
     public function create_post(Request $request,$type){
@@ -70,5 +88,27 @@ class ProfileController extends Controller
 
         return back();
         
+    }
+
+    public function view_profile_post(){
+
+        return view('profile_post');
+    }
+
+    public function follow($id){
+        $current_user_id = session('current_user_id');
+        $new_relationship= RelationshipModel::create([
+            "follower_id" => $current_user_id,
+            "following_id" => $id
+        ]);
+
+        return back();
+    }
+
+    public function unfollow($id){
+        $current_user_id = session('current_user_id');
+        RelationshipModel::where('follower_id', $current_user_id)->where('following_id',$id)-> delete();
+
+        return back();
     }
 }
