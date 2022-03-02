@@ -50,13 +50,13 @@
 
                             <div class="form-group">
                                 <input type="email" placeholder="Email" name="email" required>
-			                </div>
+			                      </div>
                               <div class="form-group">
-				                <input type="password" placeholder="Password" name="password" required>
+				                      <input type="password" placeholder="Password" name="password" required>
                             </div>
 
                           </div>
-                          <button type="submit" name="submit" class="btnRegister" value="Login as an Artist" ></button>
+                          <button type="submit" name="submit" class="btnRegister" value="Login as an Artist" >Login</button>
 
                       </form>
                       </div>
@@ -76,7 +76,8 @@
                               <div class="form-group">
 				                <input type="password" placeholder="Password" name="password" required>
                             </div>
-                              <button type="submit" name="submit" class="btnRegister" value="Login as a Professional" ></button>
+                          </div>
+                              <button type="submit" name="submit" class="btnRegister" value="Login as a Professional" >Login</button>
                       </form>
                       </div>
                   </div>

@@ -10,6 +10,7 @@ use App\Models\ImagePostModel;
 use App\Models\VideoPostModel;
 use App\Models\AudioPostModel;
 use App\Models\RelationshipModel;
+use DB;
 
 class ProfileController extends Controller
 {
@@ -35,7 +36,10 @@ class ProfileController extends Controller
             $is_follower=1;
         }
 
-        return view('profile',['user' => $user ,'current_user_id'=>$current_user_id, 'num_of_posts' =>  $num_of_posts , 'num_of_followers'=> $num_of_followers , 'num_of_following'=> $num_of_following ,'is_follower'=>$is_follower] );
+        //for timeline
+        $timeline_post=PostModel::where("user_id",$id)->orderBy('created_at', 'DESC')->get();
+
+        return view('profile',['user' => $user ,'current_user_id'=>$current_user_id, 'num_of_posts' =>  $num_of_posts , 'num_of_followers'=> $num_of_followers , 'num_of_following'=> $num_of_following ,'is_follower'=>$is_follower,'timeline_post'=>$timeline_post] );
     }
 
     public function create_post(Request $request,$type){
@@ -90,9 +94,13 @@ class ProfileController extends Controller
         
     }
 
-    public function view_profile_post(){
+    public function view_profile_post($id){
 
-        return view('profile_post');
+        $user=UserModel::find($id);
+
+        $posts=PostModel::where("user_id",$id)->orderBy('created_at', 'DESC')->get();
+
+        return view('profile_post',['posts'=>$posts,'user'=>$user]);
     }
 
     public function follow($id){
@@ -110,5 +118,78 @@ class ProfileController extends Controller
         RelationshipModel::where('follower_id', $current_user_id)->where('following_id',$id)-> delete();
 
         return back();
+    }
+
+    
+    public function view_followers_list($id){
+
+        $current_user_id = session('current_user_id');
+        $user=UserModel::find($id);
+        //ziyaret edilen profil
+        $visiting_id = $user->id;
+        
+        //profilinde olduğum kişiyi takip edenler 50
+        $followers = DB::select("select users.id, users.username, users.imgfile_path, users.first_name,users.last_name
+        from users JOIN  relationship ON users.id = relationship.follower_id 
+        where relationship.following_id =" . $visiting_id . " ");
+        //profilinde olduğum kişinin takip ettikleri 50
+        $followings = DB::select("select users.id, users.username, users.imgfile_path, users.first_name,users.last_name
+        from users left JOIN  relationship ON users.id = relationship.following_id 
+        where relationship.follower_id =" . $visiting_id . " ");
+
+        //follower list
+        $follower_list =collect();
+        foreach($followers as $follower){
+            $follower_list->push($follower->id);
+        }
+        //following list
+        $following_list =collect();
+        foreach($followings as $following){
+            $following_list->push($following->id);
+        }
+
+        //benim takip ettiklerim 53
+        $visiter_followings = DB::select("select users.id, users.username, users.imgfile_path, users.first_name,users.last_name
+        from users left JOIN  relationship ON users.id = relationship.following_id 
+        where relationship.follower_id =" . $current_user_id . " ");
+
+        $visiter_followings_list = collect();
+        foreach($visiter_followings as $following){
+            $visiter_followings_list->push($following->id);
+        }
+
+
+        return view('followers_list' , ['followers'=>$followers, 'current_user_id'=>$current_user_id , 'user'=>$user, 'visiter_followings_list'=> $visiter_followings_list,'following_list'=> $following_list,'follower_list'=> $follower_list] );
+    }
+
+    public function view_followings_list($id){
+
+        $current_user_id = session('current_user_id');
+        $user=UserModel::find($id);
+        $visiter_id = $user->id;
+
+        //giriş yapan kişinin takip  ettikleri 50
+        $followings = DB::select("select users.id, users.username, users.imgfile_path, users.first_name,users.last_name
+        from users left JOIN  relationship ON users.id = relationship.following_id 
+        where relationship.follower_id =" . $visiter_id  . " ");
+ 
+        //following list
+        $following_list =collect();
+        foreach($followings as $following){
+            $following_list->push($following->id);
+        }
+
+        //ziyaret eden kişinin takip ettikleri 53
+        $visiter_followings = DB::select("select users.id, users.username, users.imgfile_path, users.first_name,users.last_name
+        from users left JOIN  relationship ON users.id = relationship.following_id 
+        where relationship.follower_id =" . $current_user_id . " ");
+
+        $visiter_followings_list =collect();
+        foreach($visiter_followings as $following){
+            $visiter_followings_list->push($following->id);
+        }
+
+        return view('following_list', [ 'followings'=> $followings,'current_user_id'=>$current_user_id , 'user'=>$user, 
+         'visiter_followings_list'=> $visiter_followings_list,'following_list'=> $following_list]);
     }
 }

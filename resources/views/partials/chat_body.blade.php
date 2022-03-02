@@ -26,7 +26,6 @@
         <li class="{{ ($message->sender_id == $current_user_id) ? 'me' : 'you' }}">
             <div class="entete">
                 <span class="status green"></span>
-                <h2>Vincent</h2>
                 <h3>{{ date('d M y, h:i a',strtotime($message->created_at)) }}</h3>
             </div>
             <div class="triangle"></div>
@@ -40,7 +39,7 @@
 <footer>
         <input style="width: 400px;
         height: 100px;" id="message_area" type="text" name="message" class="submit">
-        <button id="send_button" type="submit" name="submit" value="Send" ></button>
+        <button id="send_button" type="submit" name="submit" value="Send" >Send</button>
 </footer>
 
 </body>

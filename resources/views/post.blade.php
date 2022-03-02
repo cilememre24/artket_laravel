@@ -81,7 +81,7 @@
                                 @endif
 
                                 <ul class="stats">
-                                    <li><a href="#">Text</a></li>
+                                    <li><a href="#">{{ $post['type'] }}</a></li>
                                 </ul>
                             </footer>
                         </article>

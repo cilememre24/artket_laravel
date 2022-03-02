@@ -31,7 +31,9 @@
         <div class="col-md-8">
             <form id="regForm" action="{{ route('create_post', ['type' => 'text'])}}" method="post" enctype="multipart/form-data">
                 @csrf
-                <div class="all-steps" id="all-steps">  <span class="step"><i class="fa fa-header"></i></span> <span class="step"><i class="fa fa-align-justify"></i></span> <span class="step"><i class="fa fa-picture-o"></i></span> <span class="step"><i class="fa fa-keyboard-o"></i></span>  <span class="step"><i class="fa fa-tag"></i></span>  </div>
+                <div class="all-steps" id="all-steps">  <span class="step"><i class="fa fa-header"></i></span> <span class="step"><i class="fa fa-align-justify"></i></span> <span class="step"><i class="fa fa-picture-o"></i></span> <span class="step"><i class="fa fa-keyboard-o"></i></span> 
+                     {{-- <span class="step"><i class="fa fa-tag"></i></span>   --}}
+                    </div>
                 <div class="tab">
                     <h6>Enter the title</h6>
                     <p> <input placeholder="Title..." oninput="this.className = ''" name="title"></p>
@@ -49,7 +51,7 @@
                     <p><textarea id="summernote" oninput="this.className = ''" name="context"></textarea></p>
                 </div>
 
-                <div class="tab">
+                {{-- <div class="tab">
                     <h6>Enter the tags</h6>
                     <p><input
                         id="tags"
@@ -57,8 +59,8 @@
                         name="tags"
                         oninput="this.className = ''"
                         placeholder="Tags Should be Comma Separated"
-                    ></p>
-            </div>
+                    ></p> --}}
+            {{-- </div> --}}
 
                 <div style="overflow:auto;" id="nextprevious">
                     <div style="float:right;"> <button type="button" id="prevBtn" onclick="nextPrev(-1)"><i class="fa fa-arrow-left"></i></button> <button type="button" id="nextBtn" onclick="nextPrev(1)"><i class="fa fa-arrow-right"></i></button> </div>

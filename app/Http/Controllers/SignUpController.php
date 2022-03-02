@@ -15,13 +15,14 @@ class SignUpController extends Controller
     public function add_user(Request $request){
 
         $img_name = $request -> profile_image -> getClientOriginalName();
-        $img_path = public_path('images') . $img_name;
+        $img_path = 'images/' . $img_name;
         $username = $request -> username;
         $email = $request -> email;
         $first_name = $request -> first_name;
         $last_name = $request -> last_name;
         $password = $request -> password;
         $gender = $request -> gender;
+
 
         $upload=$request -> profile_image -> move(public_path('images'),$img_name);
 
@@ -49,6 +50,8 @@ class SignUpController extends Controller
                 "user_id" => $user['id'],
             ]);
         }
+
+        return back();
 
     }
 }

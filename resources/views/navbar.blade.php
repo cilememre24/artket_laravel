@@ -20,10 +20,10 @@
           </button>
           <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto mr-md-3">
-                <li class="nav-item active"><a href='{{ route('explore')}}' class="nav-link">Explore</a></li>
-                <li class="nav-item"><a href='{{ route('top_list')}}' class="nav-link">Top List</a></li>
-                <li class="nav-item"><a href='{{ route('contact')}}' class="nav-link">Contact</a></li>
-                <li class="nav-item"><a href='{{ route('profile',['id' => Session::get('current_user_id') ])}}' class="nav-link">Profile</a></li>
+                <li class="nav-item {{ 'explore' == request()->path() ? 'active' : '' }}"><a href='{{ route('explore')}}' class="nav-link">Explore</a></li>
+                <li class="nav-item {{ 'top_list' == request()->path() ? 'active' : '' }}"><a href='{{ route('top_list')}}' class="nav-link">Top List</a></li>
+                <li class="nav-item {{ 'contact' == request()->path() ? 'active' : '' }}"><a href='{{ route('contact')}}' class="nav-link">Contact</a></li>
+                <li class="nav-item {{ 'profile/{id}' == request()->path() ? 'active' : '' }}"><a href='{{ route('profile',['id' => Session::get('current_user_id') ])}}' class="nav-link">Profile</a></li>
             </ul>
           </div>
         </div>
@@ -31,3 +31,4 @@
     </div>
 
 </section>
+

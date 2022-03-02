@@ -10,7 +10,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MessageController;
-
+use App\Http\Controllers\UpdateProfileController;
 
 use App\Http\Controllers\UserManagementController;
 use App\Http\Controllers\PostManagementController;
@@ -43,7 +43,6 @@ Route::get('/chat', [MessageController::class, 'index'])->name('chat');
 Route::get('/chat/{user_id}', [MessageController::class, 'show_message'])->name('show_message');
 Route::post('/chat', [MessageController::class, 'send_message'])->name('send_message');
 
-
 //SIGN UP CONTROLLER
 Route::get('/sign_up', [SignUpController::class, 'index']) ->name('sign_up');
 Route::post('/sign_up', [SignUpController::class, 'add_user']) ->name('sign_up_post');
@@ -54,9 +53,12 @@ Route::post('/sign_in', [SignInController::class, 'sign_in'])->name('sign_in_to_
 
 //EXPLORE CONTROLLER
 Route::get('/explore', [ExploreController::class, 'index'])->name('explore');
+Route::get('/explore/{cat_id}', [ExploreController::class, 'show_with_category']);
 
 //TOP LIST CONTROLLER
 Route::get('/top_list', [TopListController::class, 'index'])->name('top_list');
+Route::get('/top_list/{cat_id}', [TopListController::class, 'show_with_category'])->name('show_with_category');
+Route::post('/top_list', [TopListController::class, 'search'])->name('search');
 
 //POST CONTROLLER
 Route::get('/post/{id}', [PostController::class, 'index'])->name('go_to_post');
@@ -66,12 +68,18 @@ Route::post('/post/vote/{id}', [PostController::class, 'vote']) ->name('vote');
 
 //PROFILE CONTROLLER
 Route::get('/profile/{id}', [ProfileController::class, 'index'])->name('profile');
-Route::get('/profile_post', [ProfileController::class, 'view_profile_post'])->name('profile_post');
+Route::get('/profile_post/{id}', [ProfileController::class, 'view_profile_post'])->name('profile_post');
 Route::post('/profile/{type}', [ProfileController::class, 'create_post'])->name('create_post');
 Route::get('/profile_follow/{id}', [ProfileController::class, 'follow'])->name('follow');
 Route::get('/profile_unfollow/{id}', [ProfileController::class, 'unfollow'])->name('unfollow');
+
+Route::get('/followers/{id}', [ProfileController::class, 'view_followers_list'])->name('followers_list');
+Route::get('/followings/{id}', [ProfileController::class, 'view_followings_list'])->name('followings_list');
+
 //UPDATE_PROFILE CONTROLLER
 Route::get('update_profile', [UpdateProfileController::class , 'index'])->name('update_profile');
+Route::post('/update', [UpdateProfileController::class , 'update']);
+Route::post('/update_cp', [UpdateProfileController::class , 'change_password'])->name('change_password');
 
 //CONTACT CONTROLLER
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');

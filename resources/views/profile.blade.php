@@ -27,7 +27,10 @@
 <section class="ftco-section">
     <div class="container">
         <nav class="navbar navbar-expand-lg ftco_navbar ftco-navbar-light" style="height:max-content;" id="ftco-navbar">
-            <div class="row py-12 px-12">
+            <div  class="row" style="width: 100%;
+            height: 100%;
+            object-fit: cover;
+            margin: 0px;">
                 <div class="col-md-12 mx-auto">
                     <div class="bg-white shadow rounded overflow-hidden">
                         <div class="px-4 pt-0 pb-4 cover">
@@ -58,66 +61,69 @@
                                 </a>
                                 </li>
                                 <li class="nav-item">
-                                <a href='{{ route('profile_post')}}'  class="nav-link">
+                                <a href='{{ route('profile_post',['id' => $user['id']])}}'  class="nav-link">
                                     <div class="nav-field">Posts</div>
                                     <div class="nav-value">{{ $num_of_posts }}</div>
                                 </a>
                                 </li>
                                 <!--show following and follower  -->
                                 <li class="nav-item">
-                                <a onclick="location.href='followers.php'" class="nav-link">
-                                    <div class="nav-field">Followers</div>
-                                    <div class="nav-value">{{ $num_of_followers }}</div>
-                                </a>
-                                </li>
-                                <li class="nav-item">
-                                <a onclick="location.href='following.php'" class="nav-link">
-                                    <div class="nav-field">Following</div>
-                                    <div class="nav-value">{{ $num_of_following }}</div>
-                                </a>
-                                </li>
+                                    <a href='{{ route('followers_list',['id' => $user['id']]) }}' class="nav-link">
+                                        <div class="nav-field">Followers</div>
+                                        <div class="nav-value">{{ $num_of_followers }}</div>
+                                    </a>
+                                    </li>
+                                    <li class="nav-item">
+                                    <a href="{{ route('followings_list',['id' => $user['id']]) }}" class="nav-link">
+                                        <div class="nav-field">Following</div>
+                                        <div class="nav-value">{{ $num_of_following }}</div>
+                                    </a>
+                                    </li>
                             </ul>
                         </div>
-                        <div class="px-4 py-3">
-                            <!-- <h5 class="mb-0">Create New Post</h5> -->
-                            <div class="p-4 rounded shadow-sm bg-light">
-                                <div class="d-flex flex-row text-white" style="cursor: pointer;">
-                                    <a class="p-4 text-center skill-block"
-                                    data-toggle="modal"
-                                    data-target="#createTextPostModal" >
-                                        <h6>Text</h6>
-                                    </a>
-                                    
-                                    <a class="p-4 text-center skill-block"
-                                    data-toggle="modal"
-                                    data-target="#createImagePostModal" >
-                                        <h6>Image</h6>
-                                    </a>
-                        
-                                    <a class="p-4 text-center skill-block"
-                                    data-toggle="modal"
-                                    data-target="#createVideoPostModal" >
-                                        <h6>Video</h6>
-                                    </a>
-                        
-                                    <a class="p-4 text-center skill-block"
-                                    data-toggle="modal"
-                                    data-target="#createAudioPostModal" >
-                                        <h6>Audio</h6>
-                                    </a>
+                        @if($user['id'] == $current_user_id)
+                            <div class="px-4 py-3">
+                                <!-- <h5 class="mb-0">Create New Post</h5> -->
+                                <div class="p-4 rounded shadow-sm bg-light">
+                                    <div class="d-flex flex-row text-white" style="cursor: pointer;">
+                                        <a class="p-4 text-center skill-block"
+                                        data-toggle="modal"
+                                        data-target="#createTextPostModal" >
+                                            <h6>Text</h6>
+                                        </a>
+                                        
+                                        <a class="p-4 text-center skill-block"
+                                        data-toggle="modal"
+                                        data-target="#createImagePostModal" >
+                                            <h6>Image</h6>
+                                        </a>
+                            
+                                        <a class="p-4 text-center skill-block"
+                                        data-toggle="modal"
+                                        data-target="#createVideoPostModal" >
+                                            <h6>Video</h6>
+                                        </a>
+                            
+                                        <a class="p-4 text-center skill-block"
+                                        data-toggle="modal"
+                                        data-target="#createAudioPostModal" >
+                                            <h6>Audio</h6>
+                                        </a>
+                                    </div>
                                 </div>
-                            </div>
                         </div>
-
+                        @endif
 
                         <div class="py-4 px-4">
                             <div class="d-flex align-items-center justify-content-between mb-3">
                                 <h5 class="mb-0">Timeline</h5>
                             </div>
                             <div class="row">
-
                             <div class="container">
-                                <div class="row">
+                                <div class="row" style="width: 100%;
+                                height: 100%;
+                                object-fit: cover;
+                                margin: 0px;">
                                    <div class="col-md-12">
                                       <div id="content" class="content content-full-width">
                                          <div class="profile-content">
@@ -126,8 +132,9 @@
 
                                             <div class="tab-pane fade  active show" id="profile-timeline">
                                                   <!-- begin timeline -->
-
+                                                  
                                                   @include('partials.timeline')
+
                                                   <!-- end timeline -->
                                                </div>
 
@@ -143,6 +150,7 @@
                              </div>
                         </div>
                     </div>
+
                 </div>
             </div>
   </div>

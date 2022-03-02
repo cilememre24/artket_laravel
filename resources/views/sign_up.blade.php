@@ -78,7 +78,7 @@
                                   </div>
                               </div>
                           </div>
-                          <button type="submit" name="submit" class="btnRegister" value="Register Artist" ></button>
+                          <button type="submit" name="submit" class="btnRegister" value="Register Artist" >Register</button>
 
                       </form>
                       </div>
@@ -122,7 +122,7 @@
                                   </div>
                               </div>
                           </div>
-                          <button type="submit" name="submit" class="btnRegister" value="Register Professional" ></button>
+                          <button type="submit" name="submit" class="btnRegister" value="Register Professional" >Register</button>
 
 
                       </form>

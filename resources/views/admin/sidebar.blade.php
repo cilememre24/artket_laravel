@@ -30,49 +30,49 @@
         </div>
         <div class="sidebar-wrapper">
           <ul class="nav">
-            <li class="active ">
+            <li {{ 'dashboard' == request()->path() ? 'active' : '' }}>
               <a href='{{ route('dashboard')}}'>
                 <i class="nc-icon nc-bank"></i>
                 <p>Dashboard</p>
               </a>
             </li>
-            <li>
+            <li {{ 'user_management' == request()->path() ? 'active' : '' }}>
               <a href='{{ route('user_management')}}'>
                 <i class="nc-icon nc-circle-10"></i>
                 <p>User Management</p>
               </a>
             </li>
-            <li>
+            <li {{ 'post_management' == request()->path() ? 'active' : '' }}>
               <a href='{{ route('post_management')}}'>
                 <i class="nc-icon nc-album-2"></i>
                 <p>Post Management</p>
               </a>
             </li>
-            <li>
+            <li {{ 'permission_management' == request()->path() ? 'active' : '' }}>
               <a href='{{ route('permission_management')}}'>
                 <i class="nc-icon nc-check-2"></i>
                 <p>Permission Management</p>
               </a>
             </li>
-            <li>
+            <li {{ 'role_management' == request()->path() ? 'active' : '' }}>
               <a href='{{ route('role_management')}}'>
                 <i class="nc-icon nc-badge"></i>
                 <p>Role Management</p>
               </a>
             </li>
-            <li>
+            <li {{ 'tag_management' == request()->path() ? 'active' : '' }}>
               <a href='{{ route('tag_management')}}'>
                 <i class="nc-icon nc-tag-content"></i>
                 <p>Tag Management</p>
               </a>
             </li>
-            <li>
+            <li {{ 'top_list_management' == request()->path() ? 'active' : '' }}>
               <a href='{{ route('top_list_management')}}'>
                 <i class="nc-icon nc-bullet-list-67"></i>
                 <p>Top List Management</p>
               </a>
             </li>
-            <li>
+            <li {{ 'comment_management' == request()->path() ? 'active' : '' }}>
               <a href='{{ route('comment_management')}}'>
                 <i class="nc-icon nc-caps-small"></i>
                 <p>Comment Management</p>

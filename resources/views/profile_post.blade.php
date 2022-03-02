@@ -14,9 +14,9 @@
 			<header id="header" style="	background-image: url('../red-green-background.jpg'); ">
 				<div class="inner">
 					<a href="#" class="image avatar"><img src="upload\images\arkhe-sanat-akademisi-resim-is-ogretmenligi-01.jpg" alt="" /></a>
-					<h1><strong>Ad Soyad</strong><br />
-					@prof1<br />
-					you can go to the profile <a href="http://127.0.0.1:8080/artket/profile.php?username=prof1">here</a>.</h1>
+					<h1><strong>{{ $user->first_name }} {{ $user->last_name }}</strong><br />
+					<span>@</span>{{ $user->username }}<br />
+					you can go to the profile <a href='{{ route('profile',['id' => $user->id ])}}'>here</a>.</h1>
 				</div>
 			</header>
 
@@ -24,38 +24,20 @@
 			<div id="main">
 					<section id="two">
 						<h2>Posts</h2>
-						<div class="row">
+						@if (empty($posts))
+              			<p>You have no post!</p>
+            			@else
+            			<div class="row">
+              			@foreach ($posts as $post)
 							<article class="col-6 col-12-xsmall work-item">
-								<a href="images/fulls/01.jpg" class="image fit thumb"><img src="upload\images\Abstract-Art-Logo-Design.png" alt="" /></a>
-								<h3>Title</h3>
-								<p>Description </p>
+								<a href="{{ route('go_to_post', ['id' => $post['id']])}}" class="image fit thumb"><img src="../{{ $post->image_path }}" alt="" /></a>
+								<h3>{{ $post->title }}</h3>
+								<p>{{ $post->description }} </p>
 							</article>
-							<article class="col-6 col-12-xsmall work-item">
-								<a href="images/fulls/02.jpg" class="image fit thumb"><img src="upload\images\Abstract-Art-Logo-Design.png" alt="" /></a>
-								<h3>Title</h3>
-								<p>Description </p>
-							</article>
-							<article class="col-6 col-12-xsmall work-item">
-								<a href="images/fulls/03.jpg" class="image fit thumb"><img src="upload\images\Abstract-Art-Logo-Design.png" alt="" /></a>
-								<h3>Title</h3>
-								<p>Description </p>
-							</article>
-							<article class="col-6 col-12-xsmall work-item">
-								<a href="images/fulls/04.jpg" class="image fit thumb"><img src="upload\images\Abstract-Art-Logo-Design.png" alt="" /></a>
-								<h3>Title</h3>
-								<p>Description </p>
-							</article>
-							<article class="col-6 col-12-xsmall work-item">
-								<a href="images/fulls/05.jpg" class="image fit thumb"><img src="upload\images\Abstract-Art-Logo-Design.png" alt="" /></a>
-								<h3>Title</h3>
-								<p>Description </p>
-							</article>
-							<article class="col-6 col-12-xsmall work-item">
-								<a href="images/fulls/06.jpg" class="image fit thumb"><img src="upload\images\Abstract-Art-Logo-Design.png" alt="" /></a>
-								<h3>Title</h3>
-								<p>Description </p>
-							</article>
+						
+							@endforeach
 						</div>
+					  @endif
 					</section>
 
 
