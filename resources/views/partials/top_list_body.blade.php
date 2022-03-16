@@ -15,7 +15,15 @@
                                     </div>
 
                                     <div class="item-img">
-                                        <img src="{{ $post->image_path }}" width="125" height="81"/>
+                                        @if($post->type=='text')
+                                        <img style="border:solid rgb(253, 253, 163) 4px" src="{{ $post->image_path }}" width="125" height="81"/>
+                                        @elseif($post->type=='image')
+                                        <img style="border:solid rgb(253, 163, 170) 4px" src="{{ $post->image_path }}" width="125" height="81"/>
+                                        @elseif($post->type=='video')
+                                        <img style="border:solid rgb(163, 184, 253) 4px" src="{{ $post->image_path }}" width="125" height="81"/>
+                                        @else
+                                        <img style="border:solid rgb(178, 253, 163) 4px" src="{{ $post->image_path }}" width="125" height="81"/>
+                                        @endif
                                     </div>
 
                                     <div class="item-link">

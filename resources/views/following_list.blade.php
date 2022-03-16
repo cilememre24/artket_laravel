@@ -15,7 +15,7 @@
 					<a href="#" class="image avatar"><img src="upload\images\arkhe-sanat-akademisi-resim-is-ogretmenligi-01.jpg" alt="" /></a>
 					<h1><strong>{{ $user->first_name }} {{ $user->last_name }}</strong><br />
 					{{ $user->first_name }}<br />
-					you can go to the profile <a href='{{ route('profile',['id' => $user->id ])}}'>here</a>.</h1>
+					you can go to the profile <a href='{{ route('profile',['id' => Crypt::encrypt($user->id) ])}}'>here</a>.</h1>
 				</div>
 			</header>
 
@@ -29,7 +29,7 @@
 						<div class="row">
 							@foreach ($followings as $following)
 							<article class="col-3 col-12-xsmall work-item">
-								<a href='{{ route('profile',['id' => $following->id ])}}' class="image fit thumb"><img src="../{{ $following->imgfile_path }}" alt="" /></a>
+								<a href='{{ route('profile',['id' => Crypt::encrypt($following->id) ])}}' class="image fit thumb"><img src="../{{ $following->imgfile_path }}" alt="" /></a>
 								<div style="display: flex;">
 									{{-- ROLE GÖRE İKON EKLE --}}
 									{{-- <i class="fa fa-paint-brush" aria-hidden="true"></i> --}}
@@ -40,7 +40,7 @@
 								@if($visiter_followings_list->contains($following->id))
 									<a href='{{ route('unfollow',['id' => $following->id])}}' class="btn btn-outline-dark btn-sm btn-block">Unfollow</a>
 								@elseif($following->id == $current_user_id)
-									<a href='{{ route('profile',['id' => $current_user_id ])}}'>Go to profile</a>
+									<a href='{{ route('profile',['id' => Crypt::encrypt($current_user_id) ])}}'>Go to profile</a>
 								@else
 									<a href='{{ route('follow',['id' => $following->id])}}' class="btn btn-outline-dark btn-sm btn-block">Follow</a>
 								

@@ -18,9 +18,13 @@
 
         @if($tp->type=='audio')
             <div class="card" style="margin-bottom: 10px;">
-            <audio width="400" controls>
-            <source src="upload\audios\The Artist Song  Nursery Rhymes  Kids Songs with Sweet Tweets.mp3" type="audio/mpeg">
-        </audio>
+            <audio style="width: 100%;"  controls>
+                @foreach ($audio_posts as $ap)
+                    @if ($ap->post_id==$tp->id)
+                        <source src="../{{ $ap->audio_target }}" type="audio/mpeg">
+                    @endif
+                @endforeach 
+            </audio>
         </div>
         @endif
 
@@ -32,8 +36,12 @@
 
         @if($tp->type=='video')
             <div class="card" style="margin-bottom: 10px;">
-                <video width="400" height="200" controls>
-                    <source src="upload\videos\New Social Network - Part 23 - @ Mentions.mp4" type="video/mp4">
+                <video width="100%" height="200" controls>
+                     @foreach ($video_posts as $vp)
+                        @if ($vp->post_id==$tp->id)
+                        <source src="../{{ $vp->video_target }}" type="video/mp4">
+                        @endif
+                    @endforeach 
                 </video>
             </div>
         @endif

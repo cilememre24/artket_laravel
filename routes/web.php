@@ -51,6 +51,9 @@ Route::post('/sign_up', [SignUpController::class, 'add_user']) ->name('sign_up_p
 Route::get('/sign_in', [SignInController::class, 'index'])->name('sign_in');
 Route::post('/sign_in', [SignInController::class, 'sign_in'])->name('sign_in_to_explore');
 
+//LOG OUT CONTROLLER
+Route::get('/logout', [SignInController::class, 'logout'])->name('logout');
+
 //EXPLORE CONTROLLER
 Route::get('/explore', [ExploreController::class, 'index'])->name('explore');
 Route::get('/explore/{cat_id}', [ExploreController::class, 'show_with_category']);
@@ -66,15 +69,22 @@ Route::get('/post_next/{id}', [PostController::class, 'next'])->name('post_next'
 Route::post('/post/comment/{id}', [PostController::class, 'make_comment']) ->name('make_comment');
 Route::post('/post/vote/{id}', [PostController::class, 'vote']) ->name('vote');
 
+
+Route::get('/create_post/{type}', [PostController::class, 'view_create_post'])->name('view_create_post');
+Route::post('/create_post/{type}', [PostController::class, 'create_post'])->name('create_post');
+
 //PROFILE CONTROLLER
 Route::get('/profile/{id}', [ProfileController::class, 'index'])->name('profile');
 Route::get('/profile_post/{id}', [ProfileController::class, 'view_profile_post'])->name('profile_post');
-Route::post('/profile/{type}', [ProfileController::class, 'create_post'])->name('create_post');
 Route::get('/profile_follow/{id}', [ProfileController::class, 'follow'])->name('follow');
 Route::get('/profile_unfollow/{id}', [ProfileController::class, 'unfollow'])->name('unfollow');
 
 Route::get('/followers/{id}', [ProfileController::class, 'view_followers_list'])->name('followers_list');
 Route::get('/followings/{id}', [ProfileController::class, 'view_followings_list'])->name('followings_list');
+
+//SEARCH USER
+
+Route::get('demos/autocompleteajax','ProfileController@autoCompleteAjax');
 
 //UPDATE_PROFILE CONTROLLER
 Route::get('update_profile', [UpdateProfileController::class , 'index'])->name('update_profile');
@@ -89,6 +99,10 @@ Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 
 //USER MANAGEMENT CONTROLLER
 Route::get('/user_management', [UserManagementController::class, 'index'])->name('user_management');
+Route::get('/update_permission/{role_id}/{per_id}/{is_checked}', [UserManagementController::class, 'update_permission'])->name('update_permission');
+Route::get('/update_user/{label}/{id}', [UserManagementController::class, 'view_update_page'])->name('view_update_page');
+Route::post('/update_user/{id}', [UserManagementController::class, 'update_user'])->name('update_user');
+Route::get('/delete_user', [UserManagementController::class, 'delete_user'])->name('delete_user');
 Route::get('/users_list/{label}', [UserManagementController::class, 'list_users'])->name('list_users');
 Route::get('/create_new_user/{label}', [UserManagementController::class, 'get_create_form'])->name('get_create_form');
 Route::post('/create_new_user/{label}', [UserManagementController::class, 'create_user'])->name('create_user');
@@ -96,6 +110,10 @@ Route::post('/create_new_user/{label}', [UserManagementController::class, 'creat
 //POST MANAGEMENT CONTROLLER
 Route::get('/post_management', [PostManagementController::class, 'index'])->name('post_management');
 Route::get('/posts_list/{type}', [PostManagementController::class, 'list_posts'])->name('list_posts');
+Route::get('/delete_post/{id}', [PostManagementController::class, 'delete_post'])->name('delete_post');
+Route::get('/update_post/{id}', [PostManagementController::class, 'view_update_post'])->name('view_update_post');
+Route::post('/update_post/{id}', [PostManagementController::class, 'update_post'])->name('update_post');
+
 //PERMISSION MANAGEMENT CONTROLLER
 Route::get('/permission_management', [PermissionManagementController::class, 'index'])->name('permission_management');
 //ROLE MANAGEMENT CONTROLLER
@@ -104,6 +122,8 @@ Route::get('/role_management', [RoleManagementController::class, 'index'])->name
 Route::get('/tag_management', [TagManagementController::class, 'index'])->name('tag_management');
 //TOP LIST MANAGEMENT CONTROLLER
 Route::get('/top_list_management', [TopListManagementController::class, 'index'])->name('top_list_management');
+Route::get('/delete/{id}', [TopListManagementController::class, 'delete'])->name('delete');
+
 //COMMENT MANAGEMENT CONTROLLER
 Route::get('/comment_management', [CommentManagementController::class, 'index'])->name('comment_management');
 

@@ -35,13 +35,44 @@
                                     <h2><a href="#">{{ $post['title'] }} (VOTE: {{ $vote }}%)</a></h2>
                                     <p>{{ $post['description'] }}</p>
                                 </div>
+
                                 <div class="meta">
+                                    {{-- <div class="dropdown">
+                                        <button class="dropbtn"><i class="fa fa-ellipsis-v" aria-hidden="true"></i> Options</button>
+                                        <div class="dropdown-content">
+                                        <a href="#">Update</a>
+                                        <a href="#">Delete</a>
+                                        <a href="#">Spam</a>
+                                        </div>
+                                      </div> --}}
                                     <time class="published" datetime="2015-11-01">  {{ $post['created_at']}}</time>
-                                    <a href='{{ route('profile',['id' => $user['id'] ])}}' class="author"><span class="name">{{ $user['username'] }}</span><img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80" alt="" /></a>
+                                    <a href='{{ route('profile',['id' => Crypt::encrypt($user['id']) ])}}' class="author"><span class="name">{{ $user['username'] }}</span><img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80" alt="" /></a>
                                 </div>
                             </header>
 
+                            @if($post->type=='text' || $post->type=='image')
+                                <a href="#" class="image featured"><img src="\{{ $post['image_path'] }}" alt="" /></a>
+                            @elseif($post->type=='video')
+                                    <video width="100%" style="height: 500px;
+                                    margin-top: -70px;" controls>
+                                        @foreach ($video_posts as $vp)
+                                           @if ($vp->post_id==$post->id)
+                                           <source src="../{{ $vp->video_target }}" type="video/mp4">
+                                           @endif
+                                       @endforeach 
+                                   </video>
+                            @else
                             <a href="#" class="image featured"><img src="\{{ $post['image_path'] }}" alt="" /></a>
+                            <div style="background-color: rgb(41, 40, 40);padding:20px 20px;">
+                                <audio style="width: 100%;"  controls>
+                                    @foreach ($audio_posts as $ap)
+                                        @if ($ap->post_id==$post->id)
+                                            <source src="../{{ $ap->audio_target }}" type="audio/mpeg">
+                                        @endif
+                                    @endforeach 
+                                </audio>
+                            </div>
+                            @endif
                                                             
                             @if($post['type']=='text')
                                     @foreach($text_post as $tp)
@@ -56,7 +87,7 @@
                             <footer class="post_footer">
                                 <ul class="actions">
                                     @if($post['type']=='text')
-                                        <li><a onclick="location.href='{{ route('post_next', ['id' => $post['id']])}}'" class="button large">Continue Reading</a></li>
+                                        <li><a onclick="location.href='{{ route('post_next', ['id' => Crypt::encrypt($post['id'])])}}'" class="button large">Continue Reading</a></li>
                                     @endif
                                 </ul>
                                 <ul class="actions">
@@ -142,6 +173,46 @@
 
             }
         </script>
+{{-- 
+        <script>// For the thumbnail demo! :]
+
+            var count = 1
+            setTimeout(demo, 500)
+            setTimeout(demo, 700)
+            setTimeout(demo, 900)
+            setTimeout(reset, 2000)
+            
+            setTimeout(demo, 2500)
+            setTimeout(demo, 2750)
+            setTimeout(demo, 3050)
+            
+            
+            var mousein = false
+            function demo() {
+               if(mousein) return
+               document.getElementById('demo' + count++)
+                  .classList.toggle('hover')
+               
+            }
+            
+            function demo2() {
+               if(mousein) return
+               document.getElementById('demo2')
+                  .classList.toggle('hover')
+            }
+            
+            function reset() {
+               count = 1
+               var hovers = document.querySelectorAll('.hover')
+               for(var i = 0; i < hovers.length; i++ ) {
+                  hovers[i].classList.remove('hover')
+               }
+            }
+            
+            document.addEventListener('mouseover', function() {
+               mousein = true
+               reset()
+            })</script> --}}
 
 	</body>
 </html>

@@ -24,10 +24,11 @@
 		<div class="container">
 			<nav class="navbar navbar-expand-lg ftco_navbar ftco-navbar-light text-center" id="ftco-navbar">
           <div class="search-container">
-            <input id="search" type="text" name="search" placeholder="Search..." class="search-input">
-            <a href="#" class="search-btn">
+            <input id="search" name="search" type="text" placeholder="Search..." class="search-input" autofocus />
+            {{-- <input id="search" type="text" name="search" placeholder="Search..." class="search-input"> --}}
+            {{-- <a href="#" class="search-btn">
                     <i class="fas fa-search"></i>
-            </a>
+            </a> --}}
           </div>
 
           <div class="categories">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   <div class="" style="max-width: 250px; margin: auto;">
@@ -50,32 +51,43 @@
 		<div class="container" id="top_list_body">
             @php($i=1)
             @foreach($ordered_posts as $post)
+            @if($post->is_visible=='1')
                 <div class="tab-content">
                     <div class="tab-pane fade show active" role="tabpanel">
                         <div class="accordion">
                             <div class="card content_pool_item_add content_pool_item">
                                     <div class="card-header">
-                                        <a href="{{ route('go_to_post', ['id' => $post->id])}}" noajax="1" class="btn_toplist_play_descriptor">
                                             <div class="item">
                                                 <div class="item-order fixed">
                                                     <p>{{ $i++ }}</p>
                                                 </div>
 
+                                                <a href="{{ route('go_to_post', ['id' => Crypt::encrypt($post->id)])}}" noajax="1" class="btn_toplist_play_descriptor">
                                                 <div class="item-img">
-                                                    <img src="{{ $post->image_path }}" width="125" height="81"/>
+                                                    @if($post->type=='text')
+                                                    <img style="border:solid rgb(253, 253, 163) 4px" src="{{ $post->image_path }}" width="125" height="81"/>
+                                                    @elseif($post->type=='image')
+                                                    <img style="border:solid rgb(253, 163, 170) 4px" src="{{ $post->image_path }}" width="125" height="81"/>
+                                                    @elseif($post->type=='video')
+                                                    <img style="border:solid rgb(163, 184, 253) 4px" src="{{ $post->image_path }}" width="125" height="81"/>
+                                                    @else
+                                                    <img style="border:solid rgb(178, 253, 163) 4px" src="{{ $post->image_path }}" width="125" height="81"/>
+                                                    @endif
                                                 </div>
 
                                                 <div class="item-link">
                                                   <strong>{{ $post->title }}</strong>
-                                                  <span>{{ $post->description }}</span>
-                                                  <div class="postcard__bar"></div>
+                                                  <a href='{{ route('profile',['id' => Crypt::encrypt($post->user_id) ])}}'> <span style="font-size:13px;">by {{  $post->first_name  }} {{ $post->last_name }}</span></a>
+                                                  <div style="display: flex" class="postcard__bar"></div>
                                                   <h6><i>Vote: {{ $post->value }}</i></h6>
                                                 </div>
+                                                </a>
 
+                                                <a href="{{ route('go_to_post', ['id' => Crypt::encrypt($post->id)])}}" noajax="1" class="btn_toplist_play_descriptor">
                                                 <i class="fas fa-angle-double-right"></i>
-
+                                              </a>
                                             </div>
-                                        </a>
+
                                     </div>
 
                                 </div>
@@ -87,6 +99,7 @@
 
 		  <!-- </nav> -->
     </div>
+    @endif
     @endforeach
 
         </div>
@@ -129,18 +142,24 @@
         $('#search').on('keyup',function(){
            var value=$(this).val();
 
-          if(value != ''){
+           var data='';
+
+           if(value==''){
+              data='empty';
+           }else{
+             data=value;
+           }
+
             $.ajax({
                 type: "post",
                 url: "top_list/",
-                data:"value=" + value,
+                data:"value=" + data,
                 cache: false,
                 success: function(data){
                   $("#top_list_body").html(data);
                   // console.log(data);
                 }
             })
-          }
 
         });
 

@@ -21,15 +21,20 @@ class UpdateProfileController extends Controller
         $current_user_id = session('current_user_id');
         $user = UserModel::find($current_user_id);
 
-        $img_name = $request -> update_img -> getClientOriginalName();
-        $img_path = 'images/' . $img_name;
+        if($request -> update_img){
+            $img_name = $request -> update_img -> getClientOriginalName();
+            $img_path = 'images/' . $img_name;
+    
+            $upload=$request -> update_img -> move(public_path('images/'),$img_name);
+
+            $user->imgfile_path=$img_path;
+        }
 
         //information update
         $user->username =$request->username;
         $user->first_name =$request->first_name;
         $user->last_name =$request->last_name;
         $user->email=$request->email;
-        $user->imgfile_path=$img_path;
 
         $user->save();
         

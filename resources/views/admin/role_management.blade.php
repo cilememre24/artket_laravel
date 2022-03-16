@@ -35,14 +35,13 @@
                             Admin
                             </td>
                             <td>
+
                                 <div style="display:flex;">
-                                    <button class="btn btn-primary btn-block">Create user</button>
-                                    <button class="btn btn-primary btn-block">Edit user</button>
-                                    <button class="btn btn-primary btn-block">Share post</button>
-                                    <button class="btn btn-primary btn-block">Vote</button>
-                                    <button class="btn btn-primary btn-block">Make comment</button>
-                                
+                                  @foreach ($admin_permissions as $ap )
+                                    <button class="btn btn-primary btn-block">{{ $ap->name }}</button>       
+                                  @endforeach                   
                                 </div>
+
                             </td>
                             <td class="text-right">
                             <input type="submit" name="delete" value="Update"></input>
@@ -53,14 +52,12 @@
                             Artist
                             </td>
                             <td>
-                                <div style="display:flex;">
-                                    <button class="btn btn-primary btn-block">Create user</button>
-                                    <button class="btn btn-primary btn-block">Edit user</button>
-                                    <button class="btn btn-primary btn-block">Share post</button>
-                                    <button class="btn btn-primary btn-block">Vote</button>
-                                    <button class="btn btn-primary btn-block">Make comment</button>
-                                
-                                </div>
+
+                              <div style="display:flex;">
+                                @foreach ($artist_permissions as $ap )
+                                  <button class="btn btn-primary btn-block">{{ $ap->name }}</button>       
+                                @endforeach                   
+                              </div>
                             </td>
                             <td class="text-right">
                             <input type="submit" name="delete" value="Update"></input>
@@ -71,14 +68,12 @@
                             Endustry Professional
                             </td>
                             <td>
-                                <div style="display:flex;">
-                                    <button class="btn btn-primary btn-block">Create user</button>
-                                    <button class="btn btn-primary btn-block">Edit user</button>
-                                    <button class="btn btn-primary btn-block">Share post</button>
-                                    <button class="btn btn-primary btn-block">Vote</button>
-                                    <button class="btn btn-primary btn-block">Make comment</button>
-                                
-                                </div>
+
+                              <div style="display:flex;">
+                                @foreach ($prof_permissions as $pp )
+                                  <button class="btn btn-primary btn-block">{{ $pp->name }}</button>       
+                                @endforeach                   
+                              </div>
                             </td>
                             <td class="text-right">
                             <input type="submit" name="delete" value="Update"></input>

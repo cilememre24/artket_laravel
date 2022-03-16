@@ -2,10 +2,6 @@
 <html lang="en">
   <head>
     @include('navbar')
-    @include('partials.create_text_post')
-    @include('partials.create_image_post')
-    @include('partials.create_video_post')
-    @include('partials.create_audio_post')
 
   	<title>Profile</title>
     <meta charset="utf-8">
@@ -18,7 +14,6 @@
     <link rel="stylesheet" href="{{ asset('css/profile.css') }}">
     <link rel="stylesheet" href="{{ asset('css/timeline.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-
 
 </head>
 
@@ -61,20 +56,20 @@
                                 </a>
                                 </li>
                                 <li class="nav-item">
-                                <a href='{{ route('profile_post',['id' => $user['id']])}}'  class="nav-link">
+                                <a href='{{ route('profile_post',['id' => Crypt::encrypt($user['id'])])}}'  class="nav-link">
                                     <div class="nav-field">Posts</div>
                                     <div class="nav-value">{{ $num_of_posts }}</div>
                                 </a>
                                 </li>
                                 <!--show following and follower  -->
                                 <li class="nav-item">
-                                    <a href='{{ route('followers_list',['id' => $user['id']]) }}' class="nav-link">
+                                    <a href='{{ route('followers_list',['id' => Crypt::encrypt($user['id'])]) }}' class="nav-link">
                                         <div class="nav-field">Followers</div>
                                         <div class="nav-value">{{ $num_of_followers }}</div>
                                     </a>
                                     </li>
                                     <li class="nav-item">
-                                    <a href="{{ route('followings_list',['id' => $user['id']]) }}" class="nav-link">
+                                    <a href="{{ route('followings_list',['id' => Crypt::encrypt($user['id'])]) }}" class="nav-link">
                                         <div class="nav-field">Following</div>
                                         <div class="nav-value">{{ $num_of_following }}</div>
                                     </a>
@@ -87,26 +82,22 @@
                                 <div class="p-4 rounded shadow-sm bg-light">
                                     <div class="d-flex flex-row text-white" style="cursor: pointer;">
                                         <a class="p-4 text-center skill-block"
-                                        data-toggle="modal"
-                                        data-target="#createTextPostModal" >
+                                        href="{{ route('view_create_post',['type'=>'text']) }}" >
                                             <h6>Text</h6>
                                         </a>
                                         
                                         <a class="p-4 text-center skill-block"
-                                        data-toggle="modal"
-                                        data-target="#createImagePostModal" >
+                                        href="{{ route('view_create_post',['type'=>'image']) }}" >
                                             <h6>Image</h6>
                                         </a>
-                            
+
                                         <a class="p-4 text-center skill-block"
-                                        data-toggle="modal"
-                                        data-target="#createVideoPostModal" >
+                                        href="{{ route('view_create_post',['type'=>'video']) }}" >
                                             <h6>Video</h6>
                                         </a>
                             
                                         <a class="p-4 text-center skill-block"
-                                        data-toggle="modal"
-                                        data-target="#createAudioPostModal" >
+                                        href="{{ route('view_create_post',['type'=>'audio']) }}" >
                                             <h6>Audio</h6>
                                         </a>
                                     </div>
@@ -159,60 +150,6 @@
     </div>
 
 </section>
-
-<script>
-
-    var currentTab = 0;
-    document.addEventListener("DOMContentLoaded", function(event) {
-
-
-    showTab(currentTab);
-
-    });
-
-    function showTab(n) {
-    var x = document.getElementsByClassName("tab");
-    x[n].style.display = "block";
-    if (n == 0) {
-    document.getElementById("prevBtn").style.display = "none";
-    } else {
-    document.getElementById("prevBtn").style.display = "inline";
-    }
-    if (n == (x.length - 1)) {
-    document.getElementById("nextBtn").innerHTML = '<i class="fa fa-arrow-right"></i>';
-    } else {
-    document.getElementById("nextBtn").innerHTML = '<i class="fa fa-arrow-right"></i>';
-
-
-    }
-    fixStepIndicator(n)
-    }
-
-    function nextPrev(n) {
-    var x = document.getElementsByClassName("tab");
-    if (n == 1 && !validateForm()) return false;
-    x[currentTab].style.display = "none";
-    currentTab = currentTab + n;
-    if (currentTab >= x.length) {
-
-    document.getElementById("nextprevious").style.display = "none";
-    document.getElementById("all-steps").style.display = "none";
-    document.getElementById("register").style.display = "none";
-    document.getElementById("text-message").style.display = "block";
-
-
-    }
-    showTab(currentTab);
-    }
-
-    function validateForm() {
-    var x, y, i, valid = true;
-    x = document.getElementsByClassName("tab");
-    y = x[currentTab].getElementsByTagName("input");
-    for (i = 0; i < y.length; i++) { if (y[i].value=="" ) { y[i].className +=" invalid" ; valid=false; } } if (valid) { document.getElementsByClassName("step")[currentTab].className +=" finish" ; } return valid; } function fixStepIndicator(n) { var i, x=document.getElementsByClassName("step"); for (i=0; i < x.length; i++) { x[i].className=x[i].className.replace(" active", "" ); } x[n].className +=" active" ; }
-
-
-  </script>
 
 
 <script src="{{ asset('js/timeline.js') }}"></script>

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\UserModel;
 use App\Models\RoleModel;
+use App\Models\RolePermissionModel;
+
 use DB;
 
 class UserManagementController extends Controller
@@ -59,11 +61,34 @@ class UserManagementController extends Controller
         ]);
 
         if($label=="1"){
-            RoleModel::create([
+            $role=RoleModel::create([
                 "name" => "Admin",
                 "label" => $label,
                 "user_id" => $user['id'],
             ]);
+
+            if(!empty($role['id'])){
+                RolePermissionModel::insert([
+                    ["roles_id" => $role['id'],
+                    "permissions_id" => 1],
+                    ["roles_id" => $role['id'],
+                    "permissions_id" => 2],
+                    ["roles_id" => $role['id'],
+                    "permissions_id" => 3],
+                    ["roles_id" => $role['id'],
+                    "permissions_id" => 4],
+                    ["roles_id" => $role['id'],
+                    "permissions_id" => 7],
+                    ["roles_id" => $role['id'],
+                    "permissions_id" => 11],
+                    ["roles_id" => $role['id'],
+                    "permissions_id" => 12],
+                    ["roles_id" => $role['id'],
+                    "permissions_id" => 13],
+                    ["roles_id" => $role['id'],
+                    "permissions_id" => 14],
+                ]);
+            }
         }
         else if($label=="2"){
             RoleModel::create([
@@ -71,15 +96,137 @@ class UserManagementController extends Controller
                 "label" => $label,
                 "user_id" => $user['id'],
             ]);
+            if(!empty($role['id'])){
+                RolePermissionModel::insert([
+                    ["roles_id" => $role['id'],
+                    "permissions_id" => 1],
+                    ["roles_id" => $role['id'],
+                    "permissions_id" => 2],
+                    ["roles_id" => $role['id'],
+                    "permissions_id" => 3],
+                    ["roles_id" => $role['id'],
+                    "permissions_id" => 4],
+                    ["roles_id" => $role['id'],
+                    "permissions_id" => 5],
+                    ["roles_id" => $role['id'],
+                    "permissions_id" => 6],
+                    ["roles_id" => $role['id'],
+                    "permissions_id" => 7],
+                    ["roles_id" => $role['id'],
+                    "permissions_id" => 8],
+                    ["roles_id" => $role['id'],
+                    "permissions_id" => 9],
+                    ["roles_id" => $role['id'],
+                    "permissions_id" => 11],
+                ]);
+            }
         }else{
             RoleModel::create([
                 "name" => "EndustryProf",
                 "label" => $label,
                 "user_id" => $user['id'],
             ]);
+            if(!empty($role2['id'])){
+                RolePermissionModel::insert([
+                    ["roles_id" => $role2['id'],
+                    "permissions_id" => 1],
+                    ["roles_id" => $role2['id'],
+                    "permissions_id" => 4],
+                    ["roles_id" => $role2['id'],
+                    "permissions_id" => 5],
+                    ["roles_id" => $role2['id'],
+                    "permissions_id" => 6],
+                    ["roles_id" => $role2['id'],
+                    "permissions_id" => 8],
+                    ["roles_id" => $role2['id'],
+                    "permissions_id" => 10],
+                    ["roles_id" => $role2['id'],
+                    "permissions_id" => 9],
+                ]);
+            }
         }
 
         return back();
     }
+
+    public function view_update_page($label,$id){
+        
+        $user = UserModel::find($id);
+
+        $role = RoleModel::where('user_id',$id)->first();
+        $role_id= $role->id;
+
+        $ids = array("1","2","3","4","7","11","12","13","14");
+        $admin_permissions=DB::table('permissions')
+           ->whereIn('id', (array) $ids)
+           ->get();
+
+        $ids2 = array("1","2","3","4","5","6","7","8","9","11");
+        $artist_permissions=DB::table('permissions')
+            ->whereIn('id', (array) $ids2)
+            ->get();
+
+        $ids3 = array("1","4","5","6","8","9","10");
+        $prof_permissions=DB::table('permissions')
+            ->whereIn('id', (array) $ids3)
+            ->get();
+
+        $active_permissions = RolePermissionModel::where('roles_id',$role_id)->get();
+
+        $active_permission_list =collect();
+        foreach($active_permissions as $ap){
+            $active_permission_list->push($ap->permissions_id);
+        }
+
+        $role = RoleModel::where('user_id',$id)->get();
+
+        return view('admin.update_user',['user'=>$user,'label'=>$label,'admin_permissions'=>$admin_permissions,'artist_permissions'=>$artist_permissions,'prof_permissions'=>$prof_permissions,'role'=>$role,'active_permission_list'=>$active_permission_list]);
+    }
+
+    public function update_user($id,Request $request)
+    {   
+        $user = UserModel::find($id);
+
+        if( $request -> profile_image){
+            $img_name = $request -> profile_image -> getClientOriginalName();
+            $img_path = 'images/' . $img_name;
+    
+            $upload=$request -> profile_image -> move(public_path('images/'),$img_name);
+
+            $user->imgfile_path=$img_path;
+
+        }
+
+        //information update
+        $user->username =$request->username;
+        $user->first_name =$request->first_name;
+        $user->last_name =$request->last_name;
+        $user->email=$request->email;
+
+        $user->save();
+        
+        return redirect()->back();
+    }
+
+    public function update_permission($role_id,$per_id,$is_checked){
+        
+        if($is_checked == 1){
+            RolePermissionModel::where('permissions_id', $per_id)
+            ->where('roles_id',$role_id)
+            -> delete();
+        }else{
+            RolePermissionModel::create([
+                "permissions_id" => $per_id,
+                "roles_id" => $role_id,
+            ]);
+        }
+
+
+        // return back();
+
+    }
+
+    public function delete_user(){
+        return back();    }
 
 }

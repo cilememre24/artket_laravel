@@ -9,5 +9,5 @@ class VideoPostModel extends Model
 {
     use HasFactory;
     protected $table="posts_videos";
-    protected $fillable = ["post_id"];
+    protected $fillable = ["post_id","video_target","video_size"];
 }

@@ -13,40 +13,32 @@
 					<a href="#" class="image avatar"><img img src="../{{ $user['imgfile_path'] }}" alt="" /></a>
           <h1><strong>{{ $user->first_name }} {{ $user->last_name }}</strong><br />
 			{{ $user->username }}<br />
-					you can go to the profile <a href='{{ route('profile',['id' => $user->id ])}}'>here</a>.</h1>
+					you can go to the profile <a href='{{ route('profile',['id' => Crypt::encrypt($user->id )])}}'>here</a>.</h1>
 				</div>
 			</header>
 
 		<!-- Main -->
 			<div id="main">
-					<section id="two">
-						<h2>Followers</h2>
+				<section id="two">
+					<h2>Followers</h2>
             @if (empty($followers))
               <p>You have no followers</p>
             @else
             <div class="row">
               @foreach ($followers as $follower)
                 <article class="col-3 col-12-xsmall work-item">
-					<a href='{{ route('profile',['id' => $follower->id ])}}' class="image fit thumb"><img src="../{{ $follower->imgfile_path }}" alt="" /></a>
+					<a href='{{ route('profile',['id' => Crypt::encrypt($follower->id) ])}}' class="image fit thumb"><img src="../{{ $follower->imgfile_path }}" alt="" /></a>
 					<h3>{{ $follower->username}}</h3>
                   <p>{{ $follower->first_name }} {{ $follower->last_name }} </p> 
-									{{-- giriş yapan kişiye göre --}}
-									@if($user['id'] == $current_user_id)
-												@if ($following_list->contains($follower->id))
-												<a href='{{ route('unfollow',['id' => $follower->id])}}' id="follow_id" class="btn btn-outline-dark btn-sm btn-block">Unfollow</a>
-												@else
-													<a href='{{ route('follow',['id' => $follower->id])}}' id="follow_id" class="btn btn-outline-dark btn-sm btn-block">Follow</a>
-												@endif
-									@else
-											@if ($visiter_followings_list->contains($follower->id))
-													<a href='{{ route('unfollow',['id' => $follower->id])}}' id="follow_id" class="btn btn-outline-dark btn-sm btn-block">Unfollow</a>
-											@elseif($follower_list->contains($current_user_id))
-											<a href='{{ route('profile',['id' => $current_user_id ])}}'>Go to profile</a>
-											@else
-														<a href='{{ route('follow',['id' => $follower->id])}}' id="follow_id" class="btn btn-outline-dark btn-sm btn-block">Follow</a>
-											@endif
-												
-									@endif
+									
+								@if($visiter_followings_list->contains($follower->id))
+									<a href='{{ route('unfollow',['id' => $follower->id])}}' class="btn btn-outline-dark btn-sm btn-block">Unfollow</a>
+								@elseif($follower->id == $current_user_id)
+									<a href='{{ route('profile',['id' => Crypt::encrypt($current_user_id) ])}}'>Go to profile</a>
+								@else
+									<a href='{{ route('follow',['id' => $follower->id])}}' class="btn btn-outline-dark btn-sm btn-block">Follow</a>
+								
+								@endif
 
                 </article>
               @endforeach

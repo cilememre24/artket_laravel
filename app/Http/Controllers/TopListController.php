@@ -11,11 +11,12 @@ class TopListController extends Controller
 {
 
     public function index(){
-            $ordered_posts = DB::table('votes')
-            ->join('posts', 'votes.post_id', '=', 'posts.id')
-            ->select('posts.*','votes.value')
-            ->orderBy('votes.value', 'DESC')
-            ->get();
+        $ordered_posts = DB::table('votes')
+        ->join('posts', 'votes.post_id', '=', 'posts.id')
+        ->join('users', 'users.id', '=', 'posts.user_id')
+        ->select('posts.*','votes.value' , 'users.first_name' , 'users.last_name')
+        ->orderBy('votes.value', 'DESC')
+        ->get();
 
         return view('top_list',['ordered_posts' => $ordered_posts]);
     }
@@ -65,13 +66,21 @@ class TopListController extends Controller
 
         $value = $request -> value;
 
-        $ordered_posts = DB::table('votes')
-        ->join('posts', 'votes.post_id', '=', 'posts.id')
-        ->select('posts.*','votes.value')
-        ->where('posts.title', 'LIKE', '%'.$value.'%')
-        ->orWhere('posts.description', 'LIKE', '%'.$value.'%')
-        ->orderBy('votes.value', 'DESC')
-        ->get();
+        if($value=='empty'){
+            $ordered_posts = DB::table('votes')
+            ->join('posts', 'votes.post_id', '=', 'posts.id')
+            ->select('posts.*','votes.value')
+            ->orderBy('votes.value', 'DESC')
+            ->get();
+        }else{
+            $ordered_posts = DB::table('votes')
+            ->join('posts', 'votes.post_id', '=', 'posts.id')
+            ->select('posts.*','votes.value')
+            ->where('posts.title', 'LIKE', '%'.$value.'%')
+            ->orWhere('posts.description', 'LIKE', '%'.$value.'%')
+            ->orderBy('votes.value', 'DESC')
+            ->get();
+        }
 
         return view('partials.top_list_body',['ordered_posts' => $ordered_posts]);
 

@@ -28,15 +28,22 @@
       <div class="container">
         <nav class="navbar navbar-expand-lg ftco_navbar ftco-navbar-light text-center" id="ftco-navbar">
 
-            <div class="categories">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   <div class="" style="max-width: 250px; margin: auto;">
+            {{-- <div class="categories">    --}}
+               
+              {{-- <div class="row">
+                <div class="col">col</div>
+                <div class="col">col</div>
+                <div class="col">col</div>
+                <div class="col">col</div>
+              </div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         <div class="" style="max-width: 250px; margin: auto;"> --}}
                   <select id="js-select-type" class="category form-control js-select-design" name="category">
                         <option data-content="Choose the category" value="0" selected>Choose the category</option>
-                        <option data-content="Text" value="1" >Text</option>
-                        <option data-content="Image" value="2" >Image</option>
-                        <option data-content="Video" value="3" >Video</option>
-                        <option data-content="Audio" value="4" >Audio</option>
+                        <option style="background-color:rgb(253, 253, 163)" data-content="Text" value="1" >Text</option>
+                        <option style="background-color:rgb(253, 163, 170)" data-content="Image" value="2" >Image</option>
+                        <option style="background-color:rgb(163, 184, 253)" data-content="Video" value="3" >Video</option>
+                        <option style="background-color:#C1E091" data-content="Audio" value="4" >Audio</option>
                 </select>
-              </div>
+            {{-- </div> --}}
   
   
         </nav>
@@ -52,12 +59,20 @@
     	<div class="row">
       <div class="card-columns">
             @foreach($posts as $post)
-              <div class="card card-pin">
+              @if($post->type=='text')
+              <div class="card card-pin" style="padding: 8px;background-color:rgb(253, 253, 163)">
+              @elseif($post->type=='image')
+              <div class="card card-pin" style="padding: 8px;background-color:rgb(253, 163, 170)">
+              @elseif($post->type=='video')
+              <div class="card card-pin" style="padding: 8px;background-color:rgb(163, 184, 253)">
+              @else
+              <div class="card card-pin" style="padding: 8px;background-color:rgb(178, 253, 163)">
+              @endif
                 <img class="card-img" src="{{ $post['image_path'] }}" alt="Card image">
                 <div class="overlay">
                   <h2 class="card-title title"><{{ $post['title'] }}</h2>
                   <div class="more">
-                  <a href="{{ route('go_to_post', ['id' => $post['id']])}}">
+                  <a href="{{ route('go_to_post', ['id' => Crypt::encrypt($post['id'])])}}">
                     <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> More </a>
                   </div>
                 </div>

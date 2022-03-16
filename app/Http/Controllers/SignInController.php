@@ -32,4 +32,9 @@ class SignInController extends Controller
         }
 
     }
+
+    public function logout(Request $request){
+        $request->session()->forget('current_user_id');
+        return redirect()->route('sign_in');
+    }
 }

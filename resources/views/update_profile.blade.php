@@ -17,11 +17,11 @@
 
           <form action="{{ '/update' }}" method="post" enctype="multipart/form-data" >
             @csrf
-            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><a href='{{ route('profile',['id' => Session::get('current_user_id') ])}}'><img class="rounded-circle mt-5" src="{{ $user['imgfile_path'] }}" width="90"></a><span class="font-weight-bold">{{ $user['first_name'] }} {{ $user['last_name'] }} </span><span class="text-black-50">{{ $user['email'] }}</span><span>Artist</span></div>
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><a href='{{ route('profile',['id' => Session::get('current_user_id') ])}}'><img  id="file-ip-1-preview" class="rounded-circle mt-5" src="{{ $user['imgfile_path'] }}" width="90"></a><span class="font-weight-bold">{{ $user['first_name'] }} {{ $user['last_name'] }} </span><span class="text-black-50">{{ $user['email'] }}</span><span>Artist</span></div>
             <div id="upload_img">
 
               <label class="center">Change Picture</label>
-              <input class="center" type="file" name="update_img">
+              <input class="center" onchange="showPreview(event);" type="file" name="update_img">
             </div>
         </div>
         <div class="col-md-8">
@@ -64,6 +64,17 @@
         </div>
     </div>
   </div>
+  
+  <script type="text/javascript">
+    function showPreview(event){
+    if(event.target.files.length > 0){
+      var src = URL.createObjectURL(event.target.files[0]);
+      var preview = document.getElementById("file-ip-1-preview");
+      preview.src = src;
+      preview.style.display = "block";
+    }
+  }
+  </script>
   
   		 <!-- Scripts -->
 

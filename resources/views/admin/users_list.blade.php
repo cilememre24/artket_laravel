@@ -64,8 +64,8 @@
                         @endif
                         </td>
                         <td class="text-right">
-                          <input type="submit" name="delete" value="Update"></input>
-                          <input type="submit" name="delete" value="Delete"></input>
+                          <a class="btn" href="{{ route('view_update_page', ['id' => $user->id,'label'=>$label])}}">Update</a>
+                          <a class="btn" href="{{ route('delete_user', ['id' => $user->id])}}">Delete</a>
                         </td>
 
                         </tr>

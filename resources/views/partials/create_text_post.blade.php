@@ -16,21 +16,14 @@
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
 
   </head>
-  <body>
-    <div class="modal fade" id="createTextPostModal" tabindex="-1" role="dialog" aria-labelledby="textModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="textModalLabel">Create Text Post</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-            
+  <body style="background-image:url('../red-green-background.jpg')">
+    <section class="ftco-section">
+		<div class="container" style="padding-top:100px;text-align:center;">
     <div class="row d-flex justify-content-center align-items-center">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <form id="regForm" action="{{ route('create_post', ['type' => 'text'])}}" method="post" enctype="multipart/form-data">
                 @csrf
+                <h1 id="register">CREATE A TEXT POST</h1>
                 <div class="all-steps" id="all-steps">  <span class="step"><i class="fa fa-header"></i></span> <span class="step"><i class="fa fa-align-justify"></i></span> <span class="step"><i class="fa fa-picture-o"></i></span> <span class="step"><i class="fa fa-keyboard-o"></i></span> 
                      {{-- <span class="step"><i class="fa fa-tag"></i></span>   --}}
                     </div>
@@ -43,8 +36,25 @@
                     <p><input placeholder="Description..." oninput="this.className = ''" name="description"></p>
                 </div>
                 <div class="tab">
-                    <h6>Select the cover image</h6>
-                    <p><input type="file" name="fileToUpload" id="fileToUpload" oninput="this.className = ''"></p>
+                    <div style="height:100%;
+                    display:inline-block;
+                    align-items:center;
+                    justify-content:center;">
+                        <div style="width:350px;
+                        padding:20px;
+                        background:#e4e7e4;
+                        box-shadow: -3px -3px 7px rgba(94, 104, 121, 0.377),
+                                    3px 3px 7px rgba(94, 104, 121, 0.377);">
+                            <div class="preview">
+                                <img id="file-ip-1-preview" style="  width:100%;
+                                display:none;
+                              
+                                margin-bottom:30px;">
+                            </div>
+                            <h6>Select the cover image</h6>
+                            <p><input type="file" name="fileToUpload" id="fileToUpload" oninput="this.className = ''" accept="image/*" onchange="showPreview(event);"></p>
+                        </div>
+                    </div>
                 </div>
                 <div class="tab">
                     <h6>Text Context</h6>
@@ -69,10 +79,19 @@
             </form>
         </div>
     </div>
+        </div>
+    </section>
 
-</div>
-</div>
-</div>
+    <script type="text/javascript">
+        function showPreview(event){
+        if(event.target.files.length > 0){
+          var src = URL.createObjectURL(event.target.files[0]);
+          var preview = document.getElementById("file-ip-1-preview");
+          preview.src = src;
+          preview.style.display = "block";
+        }
+      }
+      </script>
 
 <script>
     $('#summernote').summernote({
@@ -83,6 +102,60 @@
 
 
 </script>
+
+<script>
+
+    var currentTab = 0;
+    document.addEventListener("DOMContentLoaded", function(event) {
+
+
+    showTab(currentTab);
+
+    });
+
+    function showTab(n) {
+    var x = document.getElementsByClassName("tab");
+    x[n].style.display = "block";
+    if (n == 0) {
+    document.getElementById("prevBtn").style.display = "none";
+    } else {
+    document.getElementById("prevBtn").style.display = "inline";
+    }
+    if (n == (x.length - 1)) {
+    document.getElementById("nextBtn").innerHTML = '<i class="fa fa-arrow-right"></i>';
+    } else {
+    document.getElementById("nextBtn").innerHTML = '<i class="fa fa-arrow-right"></i>';
+
+
+    }
+    fixStepIndicator(n)
+    }
+
+    function nextPrev(n) {
+    var x = document.getElementsByClassName("tab");
+    if (n == 1 && !validateForm()) return false;
+    x[currentTab].style.display = "none";
+    currentTab = currentTab + n;
+    if (currentTab >= x.length) {
+
+    document.getElementById("nextprevious").style.display = "none";
+    document.getElementById("all-steps").style.display = "none";
+    document.getElementById("register").style.display = "none";
+    document.getElementById("text-message").style.display = "block";
+
+
+    }
+    showTab(currentTab);
+    }
+
+    function validateForm() {
+    var x, y, i, valid = true;
+    x = document.getElementsByClassName("tab");
+    y = x[currentTab].getElementsByTagName("input");
+    for (i = 0; i < y.length; i++) { if (y[i].value=="" ) { y[i].className +=" invalid" ; valid=false; } } if (valid) { document.getElementsByClassName("step")[currentTab].className +=" finish" ; } return valid; } function fixStepIndicator(n) { var i, x=document.getElementsByClassName("step"); for (i=0; i < x.length; i++) { x[i].className=x[i].className.replace(" active", "" ); } x[n].className +=" active" ; }
+
+
+  </script>
 
 
   </body>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\UserModel;
 use App\Models\RoleModel;
+use App\Models\RolePermissionModel;
 
 class SignUpController extends Controller
 {
@@ -23,7 +24,6 @@ class SignUpController extends Controller
         $password = $request -> password;
         $gender = $request -> gender;
 
-
         $upload=$request -> profile_image -> move(public_path('images'),$img_name);
 
         $user=UserModel::create([
@@ -38,17 +38,63 @@ class SignUpController extends Controller
         ]);
 
         if($request->submit == "Register Artist"){
-            RoleModel::create([
+            $role=RoleModel::create([
                 "name" => "Artist",
                 "label" => '2',
                 "user_id" => $user['id'],
             ]);
+
+            if(!empty($role['id'])){
+                RolePermissionModel::insert([
+                    ["roles_id" => $role['id'],
+                    "permissions_id" => 1],
+                    ["roles_id" => $role['id'],
+                    "permissions_id" => 2],
+                    ["roles_id" => $role['id'],
+                    "permissions_id" => 3],
+                    ["roles_id" => $role['id'],
+                    "permissions_id" => 4],
+                    ["roles_id" => $role['id'],
+                    "permissions_id" => 5],
+                    ["roles_id" => $role['id'],
+                    "permissions_id" => 6],
+                    ["roles_id" => $role['id'],
+                    "permissions_id" => 7],
+                    ["roles_id" => $role['id'],
+                    "permissions_id" => 8],
+                    ["roles_id" => $role['id'],
+                    "permissions_id" => 9],
+                    ["roles_id" => $role['id'],
+                    "permissions_id" => 11],
+                ]);
+            }
+
         }else if($request->submit == "Register Professional"){
-            RoleModel::create([
+
+            $role2=RoleModel::create([
                 "name" => "EndustryProf",
                 "label" => '3',
                 "user_id" => $user['id'],
             ]);
+
+            if(!empty($role2['id'])){
+                RolePermissionModel::insert([
+                    ["roles_id" => $role2['id'],
+                    "permissions_id" => 1],
+                    ["roles_id" => $role2['id'],
+                    "permissions_id" => 4],
+                    ["roles_id" => $role2['id'],
+                    "permissions_id" => 5],
+                    ["roles_id" => $role2['id'],
+                    "permissions_id" => 6],
+                    ["roles_id" => $role2['id'],
+                    "permissions_id" => 8],
+                    ["roles_id" => $role2['id'],
+                    "permissions_id" => 10],
+                    ["roles_id" => $role2['id'],
+                    "permissions_id" => 9],
+                ]);
+            }
         }
 
         return back();

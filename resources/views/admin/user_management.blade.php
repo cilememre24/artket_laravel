@@ -57,7 +57,7 @@
                 <div class="card-footer ">
                   <hr>
 
-                  <a href="{{ route('list_users', ['label' => '2'])}}" class="btn btn-primary d-flex align-items-center justify-content-center">List Admins</a>
+                  <a href="{{ route('list_users', ['label' => '2'])}}" class="btn btn-primary d-flex align-items-center justify-content-center">List Artists</a>
                   <a href="{{ route('get_create_form', ['label' => '2'])}}" class="btn d-flex align-items-center justify-content-center"><span class="fa fa-plus"><i class="sr-only">Create</i></span></a>
               </div>
             </div>
@@ -85,7 +85,7 @@
               </div>
                 <div class="card-footer ">
                   <hr>
-                  <a href="{{ route('list_users', ['label' => '3'])}}" class="btn btn-primary d-flex align-items-center justify-content-center">List Admins</a>
+                  <a href="{{ route('list_users', ['label' => '3'])}}" class="btn btn-primary d-flex align-items-center justify-content-center">List Professionals</a>
                 <a href="{{ route('get_create_form', ['label' => '3'])}}" class="btn d-flex align-items-center justify-content-center"><span class="fa fa-plus"><i class="sr-only">Create</i></span></a>
               </div> 
                    

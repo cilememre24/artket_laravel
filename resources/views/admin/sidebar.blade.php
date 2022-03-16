@@ -2,19 +2,26 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
   
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     <!-- CSS Files -->
     <link href="{{ asset('admin/assets/css/bootstrap.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('admin/assets/css/paper-dashboard.css?v=2.0.1') }}" rel="stylesheet" />
     <!-- CSS Just for demo purpose, don't include it in your project -->
   
     <link href="{{ asset('admin/assets/demo/demo.css') }}" rel="stylesheet" />
+
+    <style>
+      small{
+        font-size: 100%;
+      }
+    </style>
   </head>
   
   <div class="wrapper ">
@@ -60,12 +67,12 @@
                 <p>Role Management</p>
               </a>
             </li>
-            <li {{ 'tag_management' == request()->path() ? 'active' : '' }}>
+            {{-- <li {{ 'tag_management' == request()->path() ? 'active' : '' }}>
               <a href='{{ route('tag_management')}}'>
                 <i class="nc-icon nc-tag-content"></i>
                 <p>Tag Management</p>
               </a>
-            </li>
+            </li> --}}
             <li {{ 'top_list_management' == request()->path() ? 'active' : '' }}>
               <a href='{{ route('top_list_management')}}'>
                 <i class="nc-icon nc-bullet-list-67"></i>
@@ -81,7 +88,7 @@
           </ul>
         </div>
       </div>
-      <div class="main-panel" style="height: 100vh;">
+      <div class="main-panel">
         <!-- Navbar -->
         <nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
           <div class="container-fluid">
@@ -145,95 +152,8 @@
   <script src={{ asset('admin/assets/demo/demo.js') }}></script>
   <!-- Sharrre libray -->
   <script src={{ asset('admin/assets/demo/jquery.sharrre.js') }}></script>
-  <script>
-    $(document).ready(function() {
-
-      $('#facebook').sharrre({
-        share: {
-          facebook: true
-        },
-        enableHover: false,
-        enableTracking: false,
-        enableCounter: false,
-        click: function(api, options) {
-          api.simulateClick();
-          api.openPopup('facebook');
-        },
-        template: '<i class="fab fa-facebook-f"></i> Facebook',
-        url: 'https://demos.creative-tim.com/paper-dashboard/examples/dashboard.html'
-      });
-
-      $('#google').sharrre({
-        share: {
-          googlePlus: true
-        },
-        enableCounter: false,
-        enableHover: false,
-        enableTracking: true,
-        click: function(api, options) {
-          api.simulateClick();
-          api.openPopup('googlePlus');
-        },
-        template: '<i class="fab fa-google-plus"></i> Google',
-        url: 'https://demos.creative-tim.com/paper-dashboard/examples/dashboard.html'
-      });
-
-      $('#twitter').sharrre({
-        share: {
-          twitter: true
-        },
-        enableHover: false,
-        enableTracking: false,
-        enableCounter: false,
-        buttons: {
-          twitter: {
-            via: 'CreativeTim'
-          }
-        },
-        click: function(api, options) {
-          api.simulateClick();
-          api.openPopup('twitter');
-        },
-        template: '<i class="fab fa-twitter"></i> Twitter',
-        url: 'https://demos.creative-tim.com/paper-dashboard/examples/dashboard.html'
-      });
 
 
-
-
-      // Facebook Pixel Code Don't Delete
-      ! function(f, b, e, v, n, t, s) {
-        if (f.fbq) return;
-        n = f.fbq = function() {
-          n.callMethod ?
-            n.callMethod.apply(n, arguments) : n.queue.push(arguments)
-        };
-        if (!f._fbq) f._fbq = n;
-        n.push = n;
-        n.loaded = !0;
-        n.version = '2.0';
-        n.queue = [];
-        t = b.createElement(e);
-        t.async = !0;
-        t.src = v;
-        s = b.getElementsByTagName(e)[0];
-        s.parentNode.insertBefore(t, s)
-      }(window,
-        document, 'script', '//connect.facebook.net/en_US/fbevents.js');
-
-      try {
-        fbq('init', '111649226022273');
-        fbq('track', "PageView");
-
-      } catch (err) {
-        console.log('Facebook Track Error:', err);
-      }
-
-    });
-  </script>
-  <noscript>
-    <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=111649226022273&ev=PageView&noscript=1" />
-  </noscript>
   <script>
     $(document).ready(function() {
 

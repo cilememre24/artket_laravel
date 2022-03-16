@@ -297,23 +297,24 @@ box-shadow:  4px 4px 6px 0 rgba(255,255,255,.3),
             -4px -4px 6px 0 rgba(116, 125, 136, .2), 
   inset -4px -4px 6px 0 rgba(255,255,255,.2),
   inset 4px 4px 6px 0 rgba(0, 0, 0, .2);
+
+  position: relative;
+  background: var(--color-brand);
+  border-radius: var(--rad);
 }
 
-.search-container:hover > .search-input{
-  width: 100%;
-}
 
 .search-container .search-input{
   background: transparent;
   border: none;
   outline:none;
-  width: 0px;
   font-weight: 500;
   font-size: 16px;
   transition: 0.8s;
 
 }
 
+/* 
 .search-container .search-btn .fas{
   color: gray;
 }
@@ -327,7 +328,7 @@ box-shadow:  4px 4px 6px 0 rgba(255,255,255,.3),
 
 .search-container:hover{
 animation: hoverShake 0.10s linear 3;
-}
+} */
 
 /* KENDİ EKLEDİKLERİM */
 
@@ -346,7 +347,6 @@ animation: hoverShake 0.10s linear 3;
   font-weight: 400;
   line-height:1.5;
   background: #fff;
-  border-radius: 30px;
   padding: 10px 20px;
   justify-content: center;
   align-items: center;
@@ -358,8 +358,7 @@ box-shadow:  4px 4px 6px 0 rgba(255,255,255,.3),
   inset 4px 4px 6px 0 rgba(0, 0, 0, .2);
 
   background-clip:padding-box;
-  border:1px solid #797d81;
-  border-radius:0.75rem;
+  border:none;
   transition:border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out;
 } 
 
@@ -549,3 +548,12 @@ b, strong {
   color: #fff;
   background-color: rgba(0,0,0,0.5);
 }
+
+.search-input {
+  height: var(--height);
+  font-family: var(--font-fam);
+  border: 0;
+  color: var(--color-dark);
+  font-size: 1.8rem;
+}
+

@@ -6,7 +6,15 @@
               <div class="col-md-12">
                 <div class="card">
                   <div class="card-header">
-                    <h4 class="card-title"> Posts</h4>
+                    @if($type=='text')
+                      <h4 class="card-title"> Texts</h4>
+                    @elseif($type=='image')
+                      <h4 class="card-title"> Images</h4>
+                    @elseif($type=='video')
+                      <h4 class="card-title"> Videos</h4>
+                    @else
+                      <h4 class="card-title"> Audios</h4>
+                    @endif
                   </div>
                   <div class="card-body">
                     <div class="table-responsive">
@@ -22,9 +30,6 @@
                             Vote
                           </th>
                           <th>
-                            Context
-                          </th>
-                          <th>
                             Image Path
                           </th>
                           <th>
@@ -35,9 +40,9 @@
                           </th>
                         </thead>
                         <tbody>
+                          @php($i=0)
                             @foreach($posts as $post)
                           <tr>
-    
                             <td>
                             {{ $post->title }}
                             </td>
@@ -45,10 +50,7 @@
                             {{ $post->description }}
                             </td>
                             <td>
-                            vote
-                            </td>
-                            <td>
-                            context
+                              {{ $votes[$i]}}
                             </td>
     
                             <td>
@@ -58,10 +60,12 @@
                             {{ $post->created_at }}
                             </td>
                             <td class="text-right">
-                            <input type="submit" name="update" value="Update"></input>
-                            <input type="submit" name="delete" value="Delete"></input>
+
+                            <a class="btn btn-info" href="{{ route('update_post', ['id' => $post->id])}}">Update</a>
+                            <a class="btn btn-danger" href="{{ route('delete_post', ['id' => $post->id])}}">Delete</a>
+                            <a class="btn btn-success" href="{{ route('go_to_post', ['id' => Crypt::encrypt($post->id)])}}">View</a>
                             </td>
-    
+                            @php($i++)
                           </tr>
                           @endforeach
                         </tbody>

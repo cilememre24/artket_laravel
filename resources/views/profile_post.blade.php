@@ -16,7 +16,7 @@
 					<a href="#" class="image avatar"><img src="upload\images\arkhe-sanat-akademisi-resim-is-ogretmenligi-01.jpg" alt="" /></a>
 					<h1><strong>{{ $user->first_name }} {{ $user->last_name }}</strong><br />
 					<span>@</span>{{ $user->username }}<br />
-					you can go to the profile <a href='{{ route('profile',['id' => $user->id ])}}'>here</a>.</h1>
+					you can go to the profile <a href='{{ route('profile',['id' => Crypt::encrypt($user->id )])}}'>here</a>.</h1>
 				</div>
 			</header>
 
@@ -30,7 +30,7 @@
             			<div class="row">
               			@foreach ($posts as $post)
 							<article class="col-6 col-12-xsmall work-item">
-								<a href="{{ route('go_to_post', ['id' => $post['id']])}}" class="image fit thumb"><img src="../{{ $post->image_path }}" alt="" /></a>
+								<a href="{{ route('go_to_post', ['id' => Crypt::encrypt($post['id'])])}}" class="image fit thumb"><img src="../{{ $post->image_path }}" alt="" /></a>
 								<h3>{{ $post->title }}</h3>
 								<p>{{ $post->description }} </p>
 							</article>
