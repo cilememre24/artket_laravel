@@ -20,6 +20,8 @@ use App\Http\Controllers\TagManagementController;
 use App\Http\Controllers\TopListManagementController;
 use App\Http\Controllers\CommentManagementController;
 use App\Http\Controllers\AdminDashboardController;
+use RealRashid\SweetAlert\Facades\Alert;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes

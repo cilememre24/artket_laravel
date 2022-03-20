@@ -5,10 +5,14 @@
   <head>
 
     @include('navbar')
+    {{-- @php($message='')
+    @include('partials.error') --}}
     @include('partials.scripts')
   	<title>Explore</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 
 	<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
 
@@ -85,7 +89,11 @@
 
         </div>
 
+        @include('sweetalert::alert')
+
 	</section>
+
+
 
   <script>
           var cat_id =0;

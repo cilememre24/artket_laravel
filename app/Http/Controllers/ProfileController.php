@@ -57,6 +57,7 @@ class ProfileController extends Controller
     }
 
     public function follow($id){
+
         $current_user_id = session('current_user_id');
         $new_relationship= RelationshipModel::create([
             "follower_id" => $current_user_id,

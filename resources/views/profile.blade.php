@@ -149,6 +149,8 @@
 
     </div>
 
+    @include('sweetalert::alert')
+
 </section>
 
 

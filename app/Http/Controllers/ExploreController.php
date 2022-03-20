@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\PostModel;
 
+use RealRashid\SweetAlert\Facades\Alert;
+
 class ExploreController extends Controller
 {
     public function index(){
+
 
         $data=PostModel::select("*")
         ->inRandomOrder()
