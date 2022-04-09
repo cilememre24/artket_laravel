@@ -23,7 +23,7 @@
             <hr>
             <div class="stats">
 <a href="{{ route('list_posts', ['type' => 'text'])}}" class="btn btn-primary d-flex align-items-center justify-content-center">List Text Posts</a>
-<a onclick="location.href='create_new_post.php?type=1'" class="btn stats d-flex align-items-center justify-content-center">Create New</a>
+<a href="{{ route('create_post', ['type' => 'text'])}}" class="btn stats d-flex align-items-center justify-content-center">Create New</a>
             </div>
           </div>
         </div>
@@ -50,7 +50,7 @@
             <div class="stats">
 
 <a href="{{ route('list_posts', ['type' => 'image'])}}" class="btn btn-primary d-flex align-items-center justify-content-center">List Image Posts</span></a>
-<a onclick="location.href='create_new_post.php?type=2'" class="btn stats d-flex align-items-center justify-content-center">Create New</a>
+<a href="{{ route('create_post', ['type' => 'image'])}}" class="btn stats d-flex align-items-center justify-content-center">Create New</a>
             </div>
           </div>
         </div>
@@ -76,8 +76,8 @@
             <hr>
             <div class="stats">
 
-<a href="{{ route('list_posts', ['type' => 'video'])}}" class="btn btn-primary d-flex align-items-center justify-content-center">List Video Posts</a>
-<a onclick="location.href='create_new_post.php?type=3'" class="btn stats d-flex align-items-center justify-content-center">Create New</a>
+            <a href="{{ route('list_posts', ['type' => 'video'])}}" class="btn btn-primary d-flex align-items-center justify-content-center">List Video Posts</a>
+            <a href="{{ route('create_post', ['type' => 'video'])}}" class="btn stats d-flex align-items-center justify-content-center">Create New</a>
             </div>
           </div>
         </div>
@@ -103,7 +103,7 @@
             <hr>
             <div class="stats">
             <a href="{{ route('list_posts', ['type' => 'audio'])}}" class="btn btn-primary d-flex align-items-center justify-content-center">List Audio Posts</a>
-<a onclick="location.href='create_new_post.php?type=4'" class="btn stats d-flex align-items-center justify-content-center">Create New</a>
+            <a href="{{ route('create_post', ['type' => 'audio'])}}" class="btn stats d-flex align-items-center justify-content-center">Create New</a>
             </div>
           </div>
         </div>

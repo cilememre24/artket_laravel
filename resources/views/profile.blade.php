@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     @include('navbar')
+    @include('partials.spam_user')
 
   	<title>Profile</title>
     <meta charset="utf-8">
@@ -27,9 +28,17 @@
             object-fit: cover;
             margin: 0px;">
                 <div class="col-md-12 mx-auto">
+
+                    <div class="col-md-16">
+                        @if (session()->has('message'))
+                        <div class="alert alert-success alert-dismissible fade show">
+                          <span><b> {{ session()->get('message') }} </b></span>
+                        </div>
+                        @endif
+                      </div>
+
                     <div class="bg-white shadow rounded overflow-hidden">
                         <div class="px-4 pt-0 pb-4 cover">
-
                           <div class="media align-items-end profile-head">
                               <div class="profile mr-3"><img src="../{{ $user['imgfile_path'] }}" alt="..." width="130" class="rounded mb-2 img-thumbnail">
 
@@ -41,6 +50,17 @@
                                 <a href='{{ route('follow',['id' => $user['id']])}}' id="follow_id" class="btn btn-outline-dark btn-sm btn-block">Follow</a></div>
                                
                                 @endif
+
+                                <div class="btn btn-outline-dark btn-sm">
+                                    <a
+                                    data-toggle="modal"
+                                    data-target="#spamModal"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-octagon" viewBox="0 0 16 16">
+                                        <path d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353L4.54.146zM5.1 1 1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1H5.1z"/>
+                                        <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
+                                      </svg>
+                                  </a>
+                                </div>
+
                               <div class="media-body mb-5 text-white">
                                   <h4 class="mt-0 mb-0">{{ $user['first_name'] }} {{ $user['last_name'] }} </h4>
                                   <p class="small mb-4" style="color: black;"> <i class="fas fa-map-marker-alt mr-2"></i>{{ $user['username'] }}</p>

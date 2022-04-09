@@ -35,7 +35,9 @@
 									{{-- <i class="fa fa-paint-brush" aria-hidden="true"></i> --}}
 									<h3> {{ $following->username }}</h3>
 								</div>
-								<p>{{ $following->first_name }} {{ $following->last_name }} </p> <p> Role </p>
+								<p>{{ $following->first_name }} {{ $following->last_name }} </p> 
+
+								<p>{{ $role->name }}</p>
 
 								@if($visiter_followings_list->contains($following->id))
 									<a href='{{ route('unfollow',['id' => $following->id])}}' class="btn btn-outline-dark btn-sm btn-block">Unfollow</a>

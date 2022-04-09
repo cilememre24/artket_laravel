@@ -38,7 +38,7 @@ class UpdateProfileController extends Controller
 
         $user->save();
         
-        return redirect()->back();
+        return redirect()->back()->with('message','Your information is updated!');  
     }
     
     public function change_password(Request $request){
@@ -53,12 +53,16 @@ class UpdateProfileController extends Controller
 
         if($old_password == $user_pass){
             $user->password =$new_password;
+        }else{
+            return redirect()->back()->with('fail_message','Wrong Password!');
         }
 
-        //EĞER ESKİ PAROLASI YENİSİ İLE AYNIYSA İZİN VERME!!
+        if($old_password == $new_password){
+            return redirect()->back()->with('fail_message','Your old password and new password can not be the same!');
+        }
 
         $user->save();
         
-        return redirect()->back();
+        return redirect()->back()->with('message','Your information is updated!');  
     }
 }

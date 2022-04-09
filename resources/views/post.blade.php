@@ -5,6 +5,7 @@
         @include('navbar')
         @include('partials.vote')
         @include('partials.scripts')
+        @include('partials.spam_post')
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
         <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
@@ -26,6 +27,15 @@
 			<div id="wrapper">
 				<!-- Main -->
 				<div id="main">
+
+                    <div class="col-md-12">
+                        @if (session()->has('message'))
+                        <div class="alert alert-success alert-dismissible fade show">
+                          <span><b> {{ session()->get('message') }} </b></span>
+                        </div>
+                        @endif
+                      </div>
+                      
                     <form action="" method="get">
 						<!-- Post -->
                         <article class="post">
@@ -37,14 +47,14 @@
                                 </div>
 
                                 <div class="meta">
-                                    {{-- <div class="dropdown">
-                                        <button class="dropbtn"><i class="fa fa-ellipsis-v" aria-hidden="true"></i> Options</button>
-                                        <div class="dropdown-content">
-                                        <a href="#">Update</a>
-                                        <a href="#">Delete</a>
-                                        <a href="#">Spam</a>
-                                        </div>
-                                      </div> --}}
+                                    <a
+                                    data-toggle="modal"
+                                    data-target="#spamPostModal">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-octagon" viewBox="0 0 16 16">
+                                        <path d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353L4.54.146zM5.1 1 1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1H5.1z"/>
+                                        <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
+                                      </svg></a>
+
                                     <time class="published" datetime="2015-11-01">  {{ $post['created_at']}}</time>
                                     <a href='{{ route('profile',['id' => Crypt::encrypt($user['id']) ])}}' class="author"><span class="name">{{ $user['username'] }}</span><img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80" alt="" /></a>
                                 </div>
@@ -157,6 +167,7 @@
                     
                 </nav>
             </div>
+            @include('sweetalert::alert')
         </section>
 
 

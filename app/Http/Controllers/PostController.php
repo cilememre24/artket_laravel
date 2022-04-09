@@ -12,8 +12,10 @@ use App\Models\ImagePostModel;
 use App\Models\VideoPostModel;
 use App\Models\AudioPostModel;
 use App\Models\UserModel;
+use App\Models\RoleModel;
 use App\Models\CommentModel;
 use App\Models\VoteModel;
+use App\Models\PostSpamModel;
 use Illuminate\Support\Facades\Crypt;
 
 class PostController extends Controller
@@ -133,72 +135,93 @@ class PostController extends Controller
     public function create_post(Request $request,$type){
         $current_user_id = session('current_user_id');
 
-        $title = $request -> title;
-        $description = $request -> description;
-        $is_spam = 0;
+        $role=RoleModel::where('user_id',$current_user_id)->first();
 
-        $img_name = $request -> fileToUpload -> getClientOriginalName();
-        $img_path = 'upload/images/' . $img_name;
-
-        $img_size = $_FILES["fileToUpload"]['size'];
-
-        $upload=$request -> fileToUpload -> move(public_path('upload/images/'),$img_name);
-
-        if($type=='video'){
-            $video_name = $request -> videoToUpload -> getClientOriginalName();
-            $video_path = 'upload/videos/' . $video_name;
+        if($request -> title && $request -> description && $request-> fileToUpload){
+            $title = $request -> title;
+            $description = $request -> description;
+            $is_spam = 0;
     
-            $video_size = $_FILES["videoToUpload"]['size'];
-            $upload=$request -> videoToUpload -> move(public_path('upload/videos/'),$video_name);
-        }
-
-        if($type=='audio'){
-            $audio_name = $request -> audioToUpload -> getClientOriginalName();
-            $audio_path = 'upload/audios/' . $audio_name;
+            $img_name = $request -> fileToUpload -> getClientOriginalName();
+            $img_path = 'upload/images/' . $img_name;
     
-            $audio_size = $_FILES["audioToUpload"]['size'];
-            $upload=$request -> audioToUpload -> move(public_path('upload/audios/'),$audio_name);
-        }
-        $post=PostModel::create([
-            "title" => $title,
-            "description" => $description,
-            "is_spam" => $is_spam,
-            "user_id" => $current_user_id,
-            "image_path" => $img_path,
-            "image_size" => $img_size,
-            "type" => $type,
-
-        ]);
-
-        $context = $request -> context;
-
-        if($type=='text'){
-            TextPostModel::create([
-                "post_id" => $post['id'],
-                "context" => $context,
-            ]);
-        }else if($type=='image'){
-            ImagePostModel::create([
-                "post_id" => $post['id'],
-            ]);
-        }else if($type=='video'){
-            VideoPostModel::create([
-                "post_id" => $post['id'],
-                "video_target" => $video_path,
-                "video_size" => $video_size,
-            ]);
-        }else{
-            AudioPostModel::create([
-                "post_id" => $post['id'],
-                "audio_target" => $audio_path,
-                "audio_size" => $audio_size,
-            ]);
-        }
-
-        $current_user_id = session('current_user_id');
-
-        return (new ProfileController)->index(Crypt::encrypt($current_user_id));
+            $img_size = $_FILES["fileToUpload"]['size'];
+    
+            $upload=$request -> fileToUpload -> move(public_path('upload/images/'),$img_name);
+    
+            if($type=='video'){
+                $video_name = $request -> videoToUpload -> getClientOriginalName();
+                $video_path = 'upload/videos/' . $video_name;
         
+                $video_size = $_FILES["videoToUpload"]['size'];
+                $upload=$request -> videoToUpload -> move(public_path('upload/videos/'),$video_name);
+            }
+    
+            if($type=='audio'){
+                $audio_name = $request -> audioToUpload -> getClientOriginalName();
+                $audio_path = 'upload/audios/' . $audio_name;
+        
+                $audio_size = $_FILES["audioToUpload"]['size'];
+                $upload=$request -> audioToUpload -> move(public_path('upload/audios/'),$audio_name);
+            }
+    
+            if($role->label != 1){
+                $post=PostModel::create([
+                    "title" => $title,
+                    "description" => $description,
+                    "is_spam" => $is_spam,
+                    "user_id" => $current_user_id,
+                    "image_path" => $img_path,
+                    "image_size" => $img_size,
+                    "type" => $type,
+        
+                ]);
+            }else{
+                $post=PostModel::create([
+                    "title" => $title,
+                    "description" => $description,
+                    "is_spam" => $is_spam,
+                    "user_id" => 82,
+                    "image_path" => $img_path,
+                    "image_size" => $img_size,
+                    "type" => $type,
+        
+                ]);
+            }
+    
+            $context = $request -> context;
+    
+            if($type=='text'){
+                TextPostModel::create([
+                    "post_id" => $post['id'],
+                    "context" => $context,
+                ]);
+            }else if($type=='image'){
+                ImagePostModel::create([
+                    "post_id" => $post['id'],
+                ]);
+            }else if($type=='video'){
+                VideoPostModel::create([
+                    "post_id" => $post['id'],
+                    "video_target" => $video_path,
+                    "video_size" => $video_size,
+                ]);
+            }else{
+                AudioPostModel::create([
+                    "post_id" => $post['id'],
+                    "audio_target" => $audio_path,
+                    "audio_size" => $audio_size,
+                ]);
+            }
+    
+            $current_user_id = session('current_user_id');
+    
+            if($role->label != 1){
+                return (new ProfileController)->index(Crypt::encrypt($current_user_id));
+            }else{
+                return (new ProfileController)->index(Crypt::encrypt(82));
+            }
+        }    
     }
 
 
@@ -207,28 +230,67 @@ class PostController extends Controller
 
         $content = $request -> comment;
 
-        $comment=CommentModel::create([
-            "content" => $content,
-            "users_id" => $current_user_id,
-            "posts_id" => $id,
-        ]);
-        
-        return back();
-        
+        $result = (new PermissionController)->comment_permission();
+        if($result == 1){
+            $comment=CommentModel::create([
+                "content" => $content,
+                "users_id" => $current_user_id,
+                "posts_id" => $id,
+            ]);
+            
+            return back(); 
+        }else{
+            $result=(new ErrorController)->index('You can not comment!');
+            return $result;
+        }
+
+
     }
 
     public function vote(Request $request,$id){
+
         $current_user_id = session('current_user_id');
 
         $value = $request -> vote_num;
 
-        $vote=VoteModel::create([
-            "user_id" => $current_user_id,
-            "post_id" => $id,
-            "value" => $value,
-        ]);
-        return back();
+        $result = (new PermissionController)->vote_permission();
+        if($result == 1){
+            $vote=VoteModel::create([
+                "user_id" => $current_user_id,
+                "post_id" => $id,
+                "value" => $value,
+            ]);
+            return redirect()->back()->with('message','Your vote is saved!');  
+        }else{
+            $result=(new ErrorController)->index('You can not vote!');
+            return $result;
+         }
+
+
         
+    }
+
+    
+    public function report_post($message,$id){
+
+        $current_user_id = session('current_user_id');
+
+        $report_m='';
+        if($message=='1'){
+            $report_m='Inappropriate content';
+        }else if($message == '2'){
+            $report_m='Illegal activities';
+        }else{
+            $report_m='Intellectual property violations';
+        }
+
+        $report=PostSpamModel::create([
+            "reporter" => $current_user_id,
+            "reportee" => $id,
+            "reason" => $report_m,
+        ]);
+        
+        return redirect()->back()->with('message','Thank you, we received your report!'); 
     }
 
 }

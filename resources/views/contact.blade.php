@@ -18,28 +18,37 @@
 
     <section class="ftco-section">
 		<div class="container">
+            <div class="col-md-16">
+                @if (session()->has('message'))
+                <div class="alert alert-success alert-dismissible fade show">
+                  <span><b> {{ session()->get('message') }} </b></span>
+                </div>
+                @endif
+              </div>
 			<nav class="navbar navbar-expand-lg ftco_navbar ftco-navbar-light" style="height:max-content;" id="ftco-navbar">
                 <div class="container contact-form">
-                            <form method="post">
+
+                    <form action="{{ route('contact_message') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
                                 <h3>Drop Us a Message</h3>
                             <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <input type="text" name="txtName" class="form-control" placeholder="Your Name *" value="" />
+                                            <input type="text" name="name" class="form-control" placeholder="Your Name *" value="" required />
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" name="txtEmail" class="form-control" placeholder="Your Email *" value="" />
+                                            <input type="text" name="email" class="form-control" placeholder="Your Email *" value="" required/>
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" name="txtPhone" class="form-control" placeholder="Your Phone Number *" value="" />
+                                            <input type="text" name="phone" class="form-control" placeholder="Your Phone Number" value="" />
                                         </div>
                                         <div class="form-group">
-                                            <input type="submit" name="btnSubmit" class="btnContact" value="Send Message" />
+                                            <input type="submit" name="btnSubmit" class="btnContact" value="Send Message" required/>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <textarea name="txtMsg" class="form-control" placeholder="Your Message *" style="width: 100%; height: 150px;"></textarea>
+                                            <textarea name="message" class="form-control" placeholder="Your Message *" style="width: 100%; height: 150px;"></textarea>
                                         </div>
                                     </div>
                                 </div>

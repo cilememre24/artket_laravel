@@ -5,8 +5,6 @@
   <head>
 
     @include('navbar')
-    {{-- @php($message='')
-    @include('partials.error') --}}
     @include('partials.scripts')
   	<title>Explore</title>
     <meta charset="utf-8">

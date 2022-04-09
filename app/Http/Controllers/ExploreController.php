@@ -11,7 +11,6 @@ class ExploreController extends Controller
 {
     public function index(){
 
-
         $data=PostModel::select("*")
         ->inRandomOrder()
         ->get();

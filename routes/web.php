@@ -19,6 +19,7 @@ use App\Http\Controllers\RoleManagementController;
 use App\Http\Controllers\TagManagementController;
 use App\Http\Controllers\TopListManagementController;
 use App\Http\Controllers\CommentManagementController;
+use App\Http\Controllers\ContactManagementController;
 use App\Http\Controllers\AdminDashboardController;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -71,6 +72,7 @@ Route::get('/post_next/{id}', [PostController::class, 'next'])->name('post_next'
 Route::post('/post/comment/{id}', [PostController::class, 'make_comment']) ->name('make_comment');
 Route::post('/post/vote/{id}', [PostController::class, 'vote']) ->name('vote');
 
+Route::get('/report_post/{message}/{id}', [PostController::class, 'report_post'])->name('report_post');
 
 Route::get('/create_post/{type}', [PostController::class, 'view_create_post'])->name('view_create_post');
 Route::post('/create_post/{type}', [PostController::class, 'create_post'])->name('create_post');
@@ -84,6 +86,8 @@ Route::get('/profile_unfollow/{id}', [ProfileController::class, 'unfollow'])->na
 Route::get('/followers/{id}', [ProfileController::class, 'view_followers_list'])->name('followers_list');
 Route::get('/followings/{id}', [ProfileController::class, 'view_followings_list'])->name('followings_list');
 
+Route::get('/report_user/{message}/{id}', [ProfileController::class, 'report_user'])->name('report_user');
+
 //SEARCH USER
 
 Route::get('demos/autocompleteajax','ProfileController@autoCompleteAjax');
@@ -95,7 +99,7 @@ Route::post('/update_cp', [UpdateProfileController::class , 'change_password'])-
 
 //CONTACT CONTROLLER
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
-
+Route::post('/contact_message', [ContactController::class, 'send_message'])->name('contact_message');
 
 //-----------------------------------------ADMIN PART------------------------------------------------
 
@@ -128,6 +132,12 @@ Route::get('/delete/{id}', [TopListManagementController::class, 'delete'])->name
 
 //COMMENT MANAGEMENT CONTROLLER
 Route::get('/comment_management', [CommentManagementController::class, 'index'])->name('comment_management');
+Route::get('/delete_comment/{id}', [CommentManagementController::class, 'delete_comment'])->name('delete_comment');
+
+//CONTACT MANAGEMENT CONTROLLER
+Route::get('/contact_management', [ContactManagementController::class, 'index'])->name('contact_management');
+Route::get('/delete_message/{id}', [ContactManagementController::class, 'delete_message'])->name('delete_message');
+Route::get('/view_message/{id}', [ContactManagementController::class, 'view_message'])->name('view_message');
 
 //DASHBOARD CONTROLLER
 Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');

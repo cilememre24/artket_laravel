@@ -38,12 +38,23 @@
       <div class="content">        
         <div class="row">
           <div class="col-md-12">
+            @if (session()->has('message'))
             <div class="alert alert-success alert-dismissible fade show">
               <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
                 <i class="nc-icon nc-simple-remove"></i>
               </button>
-              <span><b> A new user is created! </b></span>
+              <span><b> {{ session()->get('message') }} </b></span>
             </div>
+            @endif
+            @if (session()->has('fail_message'))
+            <div class="alert alert-danger alert-dismissible fade show">
+              <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
+                <i class="nc-icon nc-simple-remove"></i>
+              </button>
+              <span><b> {{ session()->get('fail_message') }} </b></span>
+            </div>
+          </div>
+          @endif
           </div>
           <form action="{{ route('create_user', ['label' => $label])}}" method="POST" enctype="multipart/form-data">
             @csrf

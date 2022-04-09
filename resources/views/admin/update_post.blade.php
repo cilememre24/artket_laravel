@@ -80,8 +80,7 @@
                   @if($post->type=='video')
                   <div class="col-md-12 user-profile card card-user">
                     <div class="text-center text-white">
-                      <video width="100%" style="height: 100%; 
-                            margin-top: -70px;"  id="video-file-ip-1-preview" controls>
+                      <video width="100%" height="100%"  id="video-file-ip-1-preview" controls>
                                 @foreach ($video_post as $vp)
                                     @if ($vp->post_id==$post->id)
                                     <source src="../{{ $vp->video_target }}" type="video/mp4">
@@ -92,7 +91,6 @@
                         <br>
                         <br>
 
-                        <h6 class="f-w-600">Change Video File</h6>
                         <input type="file" class="form-control" name="videoToUpload" id="videoToUpload" onchange="showVideoPreview(event);">
                     </div>
                   </div>
@@ -119,6 +117,9 @@
                   @endif
 
                 </div>
+
+                <br>
+                <br>
     
                 <div class="row">
                   <div class="update ml-auto mr-auto">

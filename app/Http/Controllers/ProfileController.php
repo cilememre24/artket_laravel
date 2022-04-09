@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\UserModel;
+use App\Models\RoleModel;
 use App\Models\PostModel;
 use App\Models\TextPostModel;
 use App\Models\ImagePostModel;
 use App\Models\VideoPostModel;
 use App\Models\AudioPostModel;
 use App\Models\RelationshipModel;
+use App\Models\SpamModel;
 use Illuminate\Support\Facades\Crypt;
 use DB;
 
@@ -58,13 +60,21 @@ class ProfileController extends Controller
 
     public function follow($id){
 
-        $current_user_id = session('current_user_id');
-        $new_relationship= RelationshipModel::create([
-            "follower_id" => $current_user_id,
-            "following_id" => $id
-        ]);
+        $result = (new PermissionController)->follow_permission();
 
-        return back();
+        if($result == 1){
+            $current_user_id = session('current_user_id');
+            $new_relationship= RelationshipModel::create([
+                "follower_id" => $current_user_id,
+                "following_id" => $id
+            ]);
+    
+            return back();
+        }else{
+            $result=(new ErrorController)->index('You can not follow this user!');
+            return $result;
+        }
+
     }
 
     public function unfollow($id){
@@ -84,6 +94,8 @@ class ProfileController extends Controller
         //ziyaret edilen profil
         $visiting_id = $user->id;
         
+        $role=RoleModel::where('user_id',$id)->first();
+
         //profilinde olduğum kişiyi takip edenler 50
         $followers = DB::select("select users.id, users.username, users.imgfile_path, users.first_name,users.last_name
         from users JOIN  relationship ON users.id = relationship.follower_id 
@@ -115,7 +127,7 @@ class ProfileController extends Controller
         }
 
 
-        return view('followers_list' , ['followers'=>$followers, 'current_user_id'=>$current_user_id , 'user'=>$user, 'visiter_followings_list'=> $visiter_followings_list,'following_list'=> $following_list,'follower_list'=> $follower_list] );
+        return view('followers_list' , ['followers'=>$followers, 'current_user_id'=>$current_user_id , 'user'=>$user, 'visiter_followings_list'=> $visiter_followings_list,'following_list'=> $following_list,'follower_list'=> $follower_list,'role'=>$role] );
     }
 
     public function view_followings_list($id){
@@ -124,6 +136,8 @@ class ProfileController extends Controller
         $id =  Crypt::decrypt($id);
         $user=UserModel::find($id);
         $visiter_id = $user->id;
+
+        $role=RoleModel::where('user_id',$id)->first();
 
         //giriş yapan kişinin takip  ettikleri 50
         $followings = DB::select("select users.id, users.username, users.imgfile_path, users.first_name,users.last_name
@@ -147,7 +161,7 @@ class ProfileController extends Controller
         }
 
         return view('following_list', [ 'followings'=> $followings,'current_user_id'=>$current_user_id , 'user'=>$user, 
-         'visiter_followings_list'=> $visiter_followings_list,'following_list'=> $following_list]);
+         'visiter_followings_list'=> $visiter_followings_list,'following_list'=> $following_list,'role'=>$role]);
     }
 
     public function autoCompleteAjax(Request $request)
@@ -171,5 +185,27 @@ class ProfileController extends Controller
         }
         
         echo json_encode($row_set); 
+    }
+
+    public function report_user($message,$id){
+
+        $current_user_id = session('current_user_id');
+
+        $report_m='';
+        if($message=='1'){
+            $report_m='Inappropriate content';
+        }else if($message == '2'){
+            $report_m='Scams or fraud';
+        }else{
+            $report_m='Intellectual property violations';
+        }
+
+        $report=SpamModel::create([
+            "reporter" => $current_user_id,
+            "reportee" => $id,
+            "reason" => $report_m,
+        ]);
+        
+        return redirect()->back()->with('message','Thank you, we received your report!'); 
     }
 }

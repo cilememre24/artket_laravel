@@ -85,6 +85,12 @@
                 <p>Comment Management</p>
               </a>
             </li>
+            <li {{ 'contact_management' == request()->path() ? 'active' : '' }}>
+              <a href='{{ route('contact_management')}}'>
+                <i class="nc-icon nc-email-85"></i>
+                <p>Contact Management</p>
+              </a>
+            </li>
           </ul>
         </div>
       </div>

@@ -115,12 +115,14 @@
       <div class="content">        
         <div class="row">
           <div class="col-md-12">
+            @if (session()->has('message'))
             <div class="alert alert-success alert-dismissible fade show">
               <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
                 <i class="nc-icon nc-simple-remove"></i>
               </button>
-              <span><b> User is updated! </b></span>
+              <span><b> {{ session()->get('message') }} </b></span>
             </div>
+            @endif
           </div>
           <form action="{{ route('update_user', ['id' => $user->id])}}" method="POST" enctype="multipart/form-data">
             @csrf
@@ -321,8 +323,7 @@
                       
                   });
 
-                  console.log(per_id);
-                  console.log(role_id);
+                  console.log($(this).attr('checked'));
                 }
 
               });

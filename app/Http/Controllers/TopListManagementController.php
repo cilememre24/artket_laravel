@@ -28,6 +28,6 @@ class TopListManagementController extends Controller
             $post->is_visible = '0';
             $post->save();
         }
-        return back();
+        return redirect()->back()->with('message','Post is successfully removed from top list!');  
     }
 }

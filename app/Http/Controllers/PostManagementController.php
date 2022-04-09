@@ -99,7 +99,7 @@ class PostManagementController extends Controller
             $text_post->save();
         }
 
-        if($post->type=='video'){
+        if($request -> videoToUpload){
             $video_name = $request -> videoToUpload -> getClientOriginalName();
             $video_path = 'upload/videos/' . $video_name;
     

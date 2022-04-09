@@ -5,10 +5,26 @@
   <link rel="stylesheet" href="{{ asset('admin/css/index.css') }}">
 <body>
 
+
+
 <div class="content">
     <div class="row">
         <div class="col-md-12">
+
+          
+  <div class="col-md-12">
+    @if (session()->has('message'))
+    <div class="alert alert-success alert-dismissible fade show">
+      <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
+        <i class="nc-icon nc-simple-remove"></i>
+      </button>
+      <span><b> {{ session()->get('message') }} </b></span>
+    </div>
+    @endif
+  </div>
+  
 <div class="card">
+
     <div class="card-header">
       <h4 class="card-title">Top List</h4>
     </div>

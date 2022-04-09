@@ -30,6 +30,8 @@
 					<a href='{{ route('profile',['id' => Crypt::encrypt($follower->id) ])}}' class="image fit thumb"><img src="../{{ $follower->imgfile_path }}" alt="" /></a>
 					<h3>{{ $follower->username}}</h3>
                   <p>{{ $follower->first_name }} {{ $follower->last_name }} </p> 
+
+				  <p>{{ $role->name }}</p>
 									
 								@if($visiter_followings_list->contains($follower->id))
 									<a href='{{ route('unfollow',['id' => $follower->id])}}' class="btn btn-outline-dark btn-sm btn-block">Unfollow</a>
