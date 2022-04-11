@@ -141,3 +141,8 @@ Route::get('/view_message/{id}', [ContactManagementController::class, 'view_mess
 
 //DASHBOARD CONTROLLER
 Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
+
+//SPAM MANAGEMENT CONTROLLER
+Route::get('/spam_management', [SpamManagementController::class, 'index'])->name('spam_management');
+Route::get('/delete_post_spam/{id}', [SpamManagementController::class, 'delete_post_spam'])->name('delete_post_spam');
+Route::get('/delete_user_spam/{id}', [SpamManagementController::class, 'delete_user_spam'])->name('delete_user_spam');
