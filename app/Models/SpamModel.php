@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class SpamModel extends Model
 {
     use HasFactory;
-    protected $table="spams";
+    protected $table="user_spams";
     protected $fillable = ["reporter","reportee","reason"];
 }
