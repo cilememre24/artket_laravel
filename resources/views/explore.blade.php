@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
 	</head>
-	<body>
+  <body style="background-color: #536044">
 
     <section class="ftco-section">
       <div class="container">
@@ -40,10 +40,10 @@
               </div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         <div class="" style="max-width: 250px; margin: auto;"> --}}
                   <select id="js-select-type" class="category form-control js-select-design" name="category">
                         <option data-content="Choose the category" value="0" selected>Choose the category</option>
-                        <option style="background-color:rgb(253, 253, 163)" data-content="Text" value="1" >Text</option>
-                        <option style="background-color:rgb(253, 163, 170)" data-content="Image" value="2" >Image</option>
-                        <option style="background-color:rgb(163, 184, 253)" data-content="Video" value="3" >Video</option>
-                        <option style="background-color:#C1E091" data-content="Audio" value="4" >Audio</option>
+                        <option style="background-color:#5c361a;color:white" data-content="Text" value="1" >Text</option>
+                        <option style="background-color:#872f26;color:white" data-content="Image" value="2" >Image</option>
+                        <option style="background-color:#c4572e;color:white" data-content="Video" value="3" >Video</option>
+                        <option style="background-color:#fd933a;color:white" data-content="Audio" value="4" >Audio</option>
                 </select>
             {{-- </div> --}}
   
@@ -60,26 +60,29 @@
       <div class="container-fluid" id="explore-container">
     	<div class="row">
       <div class="card-columns">
-            @foreach($posts as $post)
-              @if($post->type=='text')
-              <div class="card card-pin" style="padding: 8px;background-color:rgb(253, 253, 163)">
-              @elseif($post->type=='image')
-              <div class="card card-pin" style="padding: 8px;background-color:rgb(253, 163, 170)">
-              @elseif($post->type=='video')
-              <div class="card card-pin" style="padding: 8px;background-color:rgb(163, 184, 253)">
-              @else
-              <div class="card card-pin" style="padding: 8px;background-color:rgb(178, 253, 163)">
-              @endif
-                <img class="card-img" src="{{ $post['image_path'] }}" alt="Card image">
-                <div class="overlay">
-                  <h2 class="card-title title"><{{ $post['title'] }}</h2>
-                  <div class="more">
-                  <a href="{{ route('go_to_post', ['id' => Crypt::encrypt($post['id'])])}}">
-                    <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> More </a>
-                  </div>
-                </div>
-              </div>
-            @endforeach
+        @foreach($posts as $post)
+        @if($post->type=='text')
+        <div class="card card-pin" style="padding: 8px;background-color:#5c361a">
+        @elseif($post->type=='image')
+        <div class="card card-pin" style="padding: 8px;background-color:#872f26">
+        @elseif($post->type=='video')
+        <div class="card card-pin" style="padding: 8px;background-color:#c4572e">
+        @else
+        <div class="card card-pin" style="padding: 8px;background-color:#fd933a">
+        @endif
+          <img class="card-img" src="{{ $post->image_path }}" alt="Card image">
+          <div class="overlay">
+            <h2 class="card-title title">{{ $post->title }}</h2>
+            <div class="more">
+              <a href="{{ route('go_to_post', ['id' => Crypt::encrypt($post->id)])}}">
+                <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> More </a>
+            </div>
+            <div class="text-center">
+              <h1 style="font-size: 64px" class="card-title title">{{ $post->value }}%</h1>
+            </div>
+          </div>
+        </div>
+      @endforeach
             </div>
     	</div>
     </div>

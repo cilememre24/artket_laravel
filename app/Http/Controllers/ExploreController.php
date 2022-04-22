@@ -5,15 +5,20 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\PostModel;
 
+use DB;
+
 use RealRashid\SweetAlert\Facades\Alert;
 
 class ExploreController extends Controller
 {
     public function index(){
 
-        $data=PostModel::select("*")
+        $data=DB::table('posts')
+        ->join('votes', 'votes.post_id', '=', 'posts.id')
+        ->select('posts.*','votes.value')
         ->inRandomOrder()
         ->get();
+
 
         return view('explore',['posts' => $data]);
     }

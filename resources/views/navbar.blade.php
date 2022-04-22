@@ -73,7 +73,7 @@ input:focus{
           </button>
           <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto mr-md-3">
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                   <div style="position: relative;">
                       <svg style="  position: absolute;
                       top: 4px;
@@ -91,7 +91,7 @@ input:focus{
                       padding-left: 40px;
                   " type="text" autocomplete="off" name="search_box" id="search" class="form-control input-lg" placeholder="Search Here" />
                   </div>
-                </li>
+                </li> --}}
                 <li class="nav-item {{ 'explore' == request()->path() ? 'active' : '' }}"><a href='{{ route('explore')}}' class="nav-link">Explore</a></li>
                 <li class="nav-item {{ 'top_list' == request()->path() ? 'active' : '' }}"><a href='{{ route('top_list')}}' class="nav-link">Top List</a></li>
                 <li class="nav-item {{ 'contact' == request()->path() ? 'active' : '' }}"><a href='{{ route('contact')}}' class="nav-link">Contact</a></li>

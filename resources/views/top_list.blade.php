@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="{{ asset('css/top_list.css') }}">
 
 	</head>
-	<body>
+  <body style="background-color: #536044">
 
   <section class="ftco-section">
 		<div class="container">
@@ -34,10 +34,10 @@
           <div class="categories">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   <div class="" style="max-width: 250px; margin: auto;">
                 <select id="js-select-type" class="category form-control js-select-design" name="category">
                       <option data-content="Choose the category" value="0" selected>Choose the category</option>
-                      <option data-content="Text" value="1" >Text</option>
-                      <option data-content="Image" value="2" >Image</option>
-                      <option data-content="Video" value="3" >Video</option>
-                      <option data-content="Audio" value="4" >Audio</option>
+                      <option style="background-color:#5c361a;color:white" data-content="Text" value="1" >Text</option>
+                      <option style="background-color:#872f26;color:white" data-content="Image" value="2" >Image</option>
+                      <option style="background-color:#c4572e;color:white" data-content="Video" value="3" >Video</option>
+                      <option style="background-color:#fd933a;color:white" data-content="Audio" value="4" >Audio</option>
               </select>
             </div>
 
@@ -57,7 +57,7 @@
                         <div class="accordion">
                             <div class="card content_pool_item_add content_pool_item">
                                     <div class="card-header">
-                                            <div class="item">
+                                            <div class="item" style="margin: 10px">
                                                 <div class="item-order fixed">
                                                     <p>{{ $i++ }}</p>
                                                 </div>
@@ -65,13 +65,13 @@
                                                 <a href="{{ route('go_to_post', ['id' => Crypt::encrypt($post->id)])}}" noajax="1" class="btn_toplist_play_descriptor">
                                                 <div class="item-img">
                                                     @if($post->type=='text')
-                                                    <img style="border:solid rgb(253, 253, 163) 4px" src="{{ $post->image_path }}" width="125" height="81"/>
+                                                    <img style="border:solid #5c361a 4px" src="{{ $post->image_path }}" width="125" height="81"/>
                                                     @elseif($post->type=='image')
-                                                    <img style="border:solid rgb(253, 163, 170) 4px" src="{{ $post->image_path }}" width="125" height="81"/>
+                                                    <img style="border:solid #872f26 4px" src="{{ $post->image_path }}" width="125" height="81"/>
                                                     @elseif($post->type=='video')
-                                                    <img style="border:solid rgb(163, 184, 253) 4px" src="{{ $post->image_path }}" width="125" height="81"/>
+                                                    <img style="border:solid #c4572e 4px" src="{{ $post->image_path }}" width="125" height="81"/>
                                                     @else
-                                                    <img style="border:solid rgb(178, 253, 163) 4px" src="{{ $post->image_path }}" width="125" height="81"/>
+                                                    <img style="border:solid #fd933a 4px" src="{{ $post->image_path }}" width="125" height="81"/>
                                                     @endif
                                                 </div>
 
@@ -101,8 +101,8 @@
     </div>
     @endif
     @endforeach
-
         </div>
+
 	</section>
 
     <script>

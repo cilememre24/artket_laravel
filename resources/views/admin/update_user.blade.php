@@ -215,7 +215,7 @@
                     @if($label=='1')
                     @foreach ($admin_permissions as $adp)
                     
-                    <label class="toggle" for="{{ $adp->id }}">
+                    <label style="border-right: solid 5px;padding-right:5px;" class="toggle" for="{{ $adp->id }}">
                       @if($active_permission_list->contains($adp->id))
                       <input type="checkbox" class="toggle__input" id="{{ $adp->id }}" checked/>
                       @else
@@ -232,7 +232,8 @@
                             </span>
                         </span>
                         {{ $adp->name }}
-                    </label>             
+                    </label> 
+         
                     @endforeach
                     @elseif($label=='2')
                     @foreach ($artist_permissions as $arp)
@@ -275,7 +276,8 @@
                             </span>
                         </span>
                         {{ $pp->name }}
-                    </label>             
+                    </label>
+           
                     @endforeach
                     @endif
                   </div>

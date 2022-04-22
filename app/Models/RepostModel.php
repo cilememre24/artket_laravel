@@ -5,9 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class SpamModel extends Model
+class RepostModel extends Model
 {
     use HasFactory;
-    protected $table="user_spams";
-    protected $fillable = ["reporter","reportee","reason"];
+    protected $table = "reposts";
+    protected $fillable = ["prof_id", "post_id","comment"];
 }

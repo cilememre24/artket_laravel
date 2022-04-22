@@ -242,11 +242,13 @@ class UserManagementController extends Controller
                 "roles_id" => $role_id,
             ]);
         }
-
-
     }
 
-    public function delete_user(){
+    public function delete_user($id){
+
+        UserModel::where('id', $id)
+        -> delete();
+
         return redirect()->back()->with('message','User is deleted successfully!');    
     }
 

@@ -16,11 +16,21 @@
           <div id="user_spams_div" class="content">
             <div class="row">
               <div class="col-md-12">
+                <div class="col-md-12">
+                    @if (session()->has('message'))
+                    <div class="alert alert-success alert-dismissible fade show">
+                      <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
+                        <i class="nc-icon nc-simple-remove"></i>
+                      </button>
+                      <span><b> {{ session()->get('message') }} </b></span>
+                    </div>
+                    @endif
+                  </div>
                 <div class="card">
                   <div style="display:table" class="card-header">
                     <h4 class="card-title"> Spam Reports</h4>
                   </div>
-                  <button id="show_button" onclick="show_post_spams()">User/Post Spams</button>
+                  <button class="show_button" onclick="show_post_spams()">User/Post Spams</button>
                   <div  class="card-body">   
                     <h5 class="card-title">User Spams</h5>
                     <table id="example" class="table table-striped table-bordered" style="width:100%">
@@ -36,14 +46,15 @@
                       <tbody>
                           @foreach ($user_spams as $user_spam )
                           <tr>
-                              <td><a href="{{ route('delete_user_spam', ['id' => $user_spam->id])}}" class="btn btn-danger" >Delete </a></td>
+                              <td><a href="{{ route('delete_user_spam', ['id' => $user_spam->id])}}" class="btn btn-danger" >Delete Report</a></td>
                               <td>{{ $user_spam->reporter }}</td>
                               <td>{{ $user_spam->reportee }}</td>
                               <td>{{ $user_spam->reason }}</td>
                               <td>
                                   <a href='{{ route('profile',['id' => Crypt::encrypt($user_spam->reportee)])}}' class="btn btn-success" >View User</a>
                                   {{-- DEĞİŞECEK --}}
-                                  <a href="{{ route('delete_message', ['id' => $user_spam->id])}}" class="btn btn-danger" >Delete User</a>
+                                  <a class="btn btn-danger" href="{{ route('delete_user', ['id' => $user_spam->reportee])}}">Delete Reportee</a>
+                                
                               </td>
                           </tr>
                           @endforeach
@@ -72,7 +83,7 @@
         <div style="display:table" class="card-header">
           <h4 class="card-title"> Spam Reports</h4>
         </div>
-        <button id="show_button" onclick="show_post_spams()">User/Post Spams</button>
+        <button class="show_button" onclick="show_post_spams()">User/Post Spams</button>
 
         <div  class="card-body">
           <h5 class="card-title">Post Spams</h5>
@@ -81,7 +92,7 @@
         <tr> 
             <th>Delete</th>
             <th>Reporter</th>
-            <th>Reportee</th>
+            <th>Post</th>
             <th>Reason</th>
             <th>Action</th>
         </tr>
@@ -89,14 +100,14 @@
         <tbody>
         @foreach ($post_spams as $post_spam )
         <tr>
-            <td><a href="{{ route('delete_post_spam', ['id' => $post_spam->id])}}" class="btn btn-danger" >Delete </a></td>
+            <td><a href="{{ route('delete_post_spam', ['id' => $post_spam->id])}}" class="btn btn-danger" >Delete Report </a></td>
             <td>{{ $post_spam->reporter }}</td>
             <td>{{ $post_spam->reportee }}</td>
             <td>{{ $post_spam->reason }}</td>
             <td>
                 <a href="{{ route('go_to_post', ['id' => Crypt::encrypt($post_spam->reportee)])}}" class="btn btn-success" >View Post</a>
                  {{-- DEĞİŞECEK --}}
-                <a href="{{ route('delete_post', ['id' => Crypt::encrypt($post_spam->reportee)])}}" class="btn btn-danger" >Delete Post</a>
+                 <a class="btn btn-danger" href="{{ route('delete_post', ['id' => $post_spam->reportee])}}">Delete Post</a>
             </td>
         </tr>
         @endforeach
@@ -105,7 +116,7 @@
           <tr>
             <th>Delete</th>
             <th>Reporter</th>
-            <th>Reportee</th>
+            <th>Post</th>
             <th>Reason</th>
             <th>Action</th>
           </tr>
@@ -128,9 +139,14 @@
 <script src="//cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
 
 <style>
-#show_button{
+.show_button{
   width: fit-content;
   margin-left: 15px;
+  background-color: rgb(59, 59, 59);
+    color: white;
+    border-radius: 5px;
+    border: none;
+    padding: 10px;
 }
 </style>
 

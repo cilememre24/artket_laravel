@@ -19,6 +19,16 @@
               <div class="col-md-12">
                 <div class="card">
                   <div class="card-header">
+                    <div class="col-md-12">
+                      @if (session()->has('message'))
+                      <div class="alert alert-success alert-dismissible fade show">
+                        <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
+                          <i class="nc-icon nc-simple-remove"></i>
+                        </button>
+                        <span><b> {{ session()->get('message') }} </b></span>
+                      </div>
+                      @endif
+                    </div>
                     @if($type=='text')
                       <h4 class="card-title"> Texts</h4>
                     @elseif($type=='image')

@@ -14,7 +14,7 @@
 	<link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
 	</head>
-	<body>
+    <body style="background-color: #536044">
 
     <section class="ftco-section">
 		<div class="container">

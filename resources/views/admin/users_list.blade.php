@@ -99,6 +99,7 @@
                   @endif
                   </td>
                   <td class="text-right">
+                    <a href='{{ route('profile',['id' => Crypt::encrypt($user->id)])}}' class="btn btn-success" >View User</a>
                     <a class="btn btn-primary" href="{{ route('view_update_page', ['id' => $user->id,'label'=>$label])}}">Update</a>
                     <a class="btn btn-secondary" href="{{ route('delete_user', ['id' => $user->id])}}">Delete</a>
                   </td>

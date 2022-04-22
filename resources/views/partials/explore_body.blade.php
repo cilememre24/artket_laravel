@@ -6,13 +6,13 @@
     <div class="card-columns">
       @foreach($posts as $post)
       @if($post->type=='text')
-      <div class="card card-pin" style="padding: 8px;background-color:rgb(253, 253, 163)">
+      <div class="card card-pin" style="padding: 8px;background-color:#5c361a">
       @elseif($post->type=='image')
-      <div class="card card-pin" style="padding: 8px;background-color:rgb(253, 163, 170)">
+      <div class="card card-pin" style="padding: 8px;background-color:#872f26">
       @elseif($post->type=='video')
-      <div class="card card-pin" style="padding: 8px;background-color:rgb(163, 184, 253)">
+      <div class="card card-pin" style="padding: 8px;background-color:#c4572e">
       @else
-      <div class="card card-pin" style="padding: 8px;background-color:rgb(178, 253, 163)">
+      <div class="card card-pin" style="padding: 8px;background-color:#fd933a">
       @endif
         <img class="card-img" src="{{ $post['image_path'] }}" alt="Card image">
         <div class="overlay">

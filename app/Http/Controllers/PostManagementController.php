@@ -46,19 +46,9 @@ class PostManagementController extends Controller
 
         $post=PostModel::find($id);
 
-        if($post->type=='text'){
-            TextPostModel::where('post_id',$id)->delete();
-        }else if($post->type=='image'){
-            ImagePostModel::where('post_id',$id)->delete();
-        }else if($post->type=='video'){
-            VideoPostModel::where('post_id',$id)->delete();
-        }else{
-            AudioPostModel::where('post_id',$id)->delete();
-        }
-        
         PostModel::where('id', $id)-> delete();
 
-        return back();
+        return back()->with('message','Post is deleted successfully!'); 
 
     }
 

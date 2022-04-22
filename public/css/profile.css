@@ -3,7 +3,7 @@
 }
 
 .cover {
-    background-color: #C77951;
+    background-color: #c2be9c;
     background-size: cover;
     background-repeat: no-repeat
 }
@@ -16,7 +16,7 @@ body {
 .skill-block {
     width: 30%;
     border-radius: 60px;
-    background-color: #687A4B ;
+    background-color: #9caf93 ;
 }
 
 

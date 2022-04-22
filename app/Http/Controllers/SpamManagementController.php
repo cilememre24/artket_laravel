@@ -20,12 +20,12 @@ class SpamManagementController extends Controller
 
     public function delete_post_spam($id){
         PostSpamModel::where('id', $id)-> delete();
-        return back();
+        return redirect()->back()->with('message','Post is deleted successfully!');  
     }
 
     public function delete_user_spam($id){
         SpamModel::where('id', $id)-> delete();
-        return back();
+        return redirect()->back()->with('message','User is deleted successfully!');  
     }
     
 }

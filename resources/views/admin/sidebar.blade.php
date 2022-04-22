@@ -91,6 +91,12 @@
                 <p>Contact Management</p>
               </a>
             </li>
+            <li {{ 'spam_management' == request()->path() ? 'active' : '' }}>
+              <a href='{{ route('spam_management')}}'>
+                <i class="nc-icon nc-alert-circle-i"></i>
+                <p>Spam Management</p>
+              </a>
+            </li>
           </ul>
         </div>
       </div>

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\UserModel;
 use App\Models\RoleModel;
 use App\Models\PostModel;
+use App\Models\RepostModel;
 use App\Models\TextPostModel;
 use App\Models\ImagePostModel;
 use App\Models\VideoPostModel;
@@ -45,7 +46,21 @@ class ProfileController extends Controller
         $timeline_post=PostModel::where("user_id",$id)->orderBy('created_at', 'DESC')->get();
         $video_posts=VideoPostModel::select("*")->get();
         $audio_posts=AudioPostModel::select("*")->get();
-        return view('profile',['user' => $user ,'current_user_id'=>$current_user_id, 'num_of_posts' =>  $num_of_posts , 'num_of_followers'=> $num_of_followers , 'num_of_following'=> $num_of_following ,'is_follower'=>$is_follower,'timeline_post'=>$timeline_post,'video_posts'=>$video_posts,'audio_posts'=>$audio_posts] );
+
+        $role=RoleModel::where('user_id',$id)->first();
+
+
+        $repost_posts=DB::table('posts')
+        ->join('reposts', 'posts.id', '=', 'reposts.post_id')
+        ->join('users', 'posts.user_id', '=', 'users.id')
+        ->select('posts.*','users.*','reposts.comment','reposts.post_id')
+        ->orderBy('reposts.created_at', 'DESC')
+        ->where('reposts.prof_id','=',$id)
+        ->get();
+
+        $result = (new PermissionController)->share_post();
+
+        return view('profile',['user' => $user ,'current_user_id'=>$current_user_id, 'num_of_posts' =>  $num_of_posts , 'num_of_followers'=> $num_of_followers , 'num_of_following'=> $num_of_following ,'is_follower'=>$is_follower,'timeline_post'=>$timeline_post,'video_posts'=>$video_posts,'audio_posts'=>$audio_posts,'role'=>$role,'repost_posts'=>$repost_posts,'result'=>$result] );
     }
 
     public function view_profile_post($id){

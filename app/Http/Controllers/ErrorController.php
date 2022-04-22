@@ -15,9 +15,5 @@ class ErrorController extends Controller
         return redirect()->back();
     }
 
-    //BAŞARIYLA OLUŞTURULDU, OLUŞTURULMADI FONKSİYONU OLACAK
-
-
-    
 
 }

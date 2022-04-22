@@ -6,6 +6,8 @@
         @include('partials.vote')
         @include('partials.scripts')
         @include('partials.spam_post')
+        @include('partials.repost')
+        @include('partials.delete_post')
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
         <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
@@ -47,6 +49,14 @@
                                 </div>
 
                                 <div class="meta">
+                                    @if($user['id'] == $current_user_id)
+                                    <a
+                                    data-toggle="modal"
+                                    data-target="#deletePostModal"
+                                    ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                                        <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z"/>
+                                      </svg></a>
+                                      @endif
                                     <a
                                     data-toggle="modal"
                                     data-target="#spamPostModal">
@@ -56,7 +66,7 @@
                                       </svg></a>
 
                                     <time class="published" datetime="2015-11-01">  {{ $post['created_at']}}</time>
-                                    <a href='{{ route('profile',['id' => Crypt::encrypt($user['id']) ])}}' class="author"><span class="name">{{ $user['username'] }}</span><img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80" alt="" /></a>
+                                    <a href='{{ route('profile',['id' => Crypt::encrypt($user['id']) ])}}' class="author"><span class="name">{{ $user['username'] }}</span><img width="25%" src="../{{ $user->imgfile_path }}" alt="" /></a>
                                 </div>
                             </header>
 
@@ -123,6 +133,14 @@
 
                                 <ul class="stats">
                                     <li><a href="#">{{ $post['type'] }}</a></li>
+                                </ul>
+                                <ul class="actions">
+                                    <li id="repost"><a
+                                        data-toggle="modal"
+                                        data-target="#repostModal">                                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-repeat" viewBox="0 0 16 16">
+                                        <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"/>
+                                        <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"/>
+                                      </svg></a></li>
                                 </ul>
                             </footer>
                         </article>

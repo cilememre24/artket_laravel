@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\ExploreController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ErrorController;
 use Illuminate\Http\Request;
@@ -15,6 +16,7 @@ use App\Models\UserModel;
 use App\Models\RoleModel;
 use App\Models\CommentModel;
 use App\Models\VoteModel;
+use App\Models\RepostModel;
 use App\Models\PostSpamModel;
 use Illuminate\Support\Facades\Crypt;
 
@@ -63,7 +65,7 @@ class PostController extends Controller
             $video_posts=VideoPostModel::select("*")->get();
             $audio_posts=AudioPostModel::select("*")->get();
 
-            return view('post',['post' => $post,'user' => $user,'comments' => $comments,'vote' => $vote,'is_voted' => $is_voted, 'text_post' => $text_post, 'video_posts' => $video_posts,'audio_posts'=>$audio_posts]);
+            return view('post',['post' => $post,'user' => $user,'comments' => $comments,'vote' => $vote,'is_voted' => $is_voted, 'text_post' => $text_post, 'video_posts' => $video_posts,'audio_posts'=>$audio_posts,'current_user_id'=>$current_user_id]);
         }else{
             $result=(new ErrorController)->index('You can not view post!');
             return $result;
@@ -291,6 +293,34 @@ class PostController extends Controller
         ]);
         
         return redirect()->back()->with('message','Thank you, we received your report!'); 
+    }
+
+    public function repost($post_id, Request $request){
+        
+        //repost table hangi prof paylaşıyor id, hangi postu paylaşmış id, yaptığı yorum
+
+        $current_user_id = session('current_user_id');
+
+        $comment=$request->comment;
+
+        $repost=RepostModel::create([
+            "prof_id" => $current_user_id,
+            "post_id" => $post_id,
+            "comment" => $comment,
+        ]);
+
+        return redirect()->back();
+
+    }
+
+    public function delete_own_post($id){
+
+        $post=PostModel::find($id);
+
+        PostModel::where('id', $id)-> delete();
+
+        return redirect()->intended('explore');
+
     }
 
 }
