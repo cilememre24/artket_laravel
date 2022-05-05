@@ -111,6 +111,10 @@ Route::post('/contact_message', [ContactController::class, 'send_message'])->nam
 
 //-----------------------------------------ADMIN PART------------------------------------------------
 
+//ADMİN LOGIN CONTROLLER
+Route::get('/admin_login', [AdminLoginController::class, 'index'])->name('admin_login');
+Route::post('/admin_login', [AdminLoginController::class, 'admin_sign_in'])->name('admin_sign_in');
+
 //USER MANAGEMENT CONTROLLER
 Route::get('/user_management', [UserManagementController::class, 'index'])->name('user_management')->middleware(CheckAdminPermission::class);
 Route::get('/update_permission/{role_id}/{per_id}/{is_checked}', [UserManagementController::class, 'update_permission'])->name('update_permission');
