@@ -4,8 +4,7 @@
 <html lang="en">
   <head>
 
-    @include('navbar')
-    @include('partials.scripts')
+
   	<title>Explore</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -25,6 +24,8 @@
 
 	</head>
   <body style="background-color: #536044">
+    @include('navbar')
+    @include('partials.scripts')
 
     <section class="ftco-section">
       <div class="container">
@@ -78,7 +79,7 @@
                 <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> More </a>
             </div>
             <div class="text-center">
-              <h1 style="font-size: 64px" class="card-title title">{{ $post->value }}%</h1>
+              <h1 style="font-size: 64px" class="card-title title">{{ round($post->average,2) }}%</h1>
             </div>
           </div>
         </div>

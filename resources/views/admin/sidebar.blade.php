@@ -120,16 +120,6 @@
               <span class="navbar-toggler-bar navbar-kebab"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navigation">
-              <form>
-                <div class="input-group no-border">
-                  <input type="text" value="" class="form-control" placeholder="Search...">
-                  <div class="input-group-append">
-                    <div class="input-group-text">
-                      <i class="nc-icon nc-zoom-split"></i>
-                    </div>
-                  </div>
-                </div>
-              </form>
               <ul class="navbar-nav">
                 <li class="nav-item btn-rotate dropdown">
                   <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -139,15 +129,13 @@
                     </p>
                   </a>
                   <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="#">Log Out</a>
+                    <a class="dropdown-item" href="{{ route('admin_logout')}}">Log Out</a>
                   </div>
                 </li>
               </ul>
             </div>
           </div>
         </nav>
-
-        
   
 
         <!--   Core JS Files   -->
@@ -163,7 +151,6 @@
   <script src={{ asset('admin/assets/js/paper-dashboard.min.js?v=2.0.1" type="text/javascript') }}></script>
   <script src={{ asset('admin/assets/demo/demo.js') }}></script>
   <!-- Sharrre libray -->
-  <script src={{ asset('admin/assets/demo/jquery.sharrre.js') }}></script>
 
 
   <script>
@@ -181,12 +168,12 @@
 
       fixed_plugin_open = $('.sidebar .sidebar-wrapper .nav li.active a p').html();
 
-      // if( window_width > 767 && fixed_plugin_open == 'Dashboard' ){
-      //     if($('.fixed-plugin .dropdown').hasClass('show-dropdown')){
-      //         $('.fixed-plugin .dropdown').addClass('show');
-      //     }
-      //
-      // }
+      if( window_width > 767 && fixed_plugin_open == 'Dashboard' ){
+          if($('.fixed-plugin .dropdown').hasClass('show-dropdown')){
+              $('.fixed-plugin .dropdown').addClass('show');
+          }
+      
+      }
 
       $('.fixed-plugin a').click(function(event) {
         // Alex if we click on switch, stop propagation of the event, so the dropdown will not be hide, otherwise we set the  section active

@@ -1,8 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-    @include('navbar')
-    @include('partials.spam_user')
+
 
   	<title>Profile</title>
     <meta charset="utf-8">
@@ -20,6 +19,8 @@
 
 
 <body style="background-color: #536044">
+    @include('navbar')
+    @include('partials.spam_user')
 <section class="ftco-section">
     <div class="container">
         <nav class="navbar navbar-expand-lg ftco_navbar ftco-navbar-light" style="height:max-content;" id="ftco-navbar">
@@ -84,12 +85,14 @@
                                     <div class="nav-field">Timeline</div>
                                 </a>
                                 </li>
-                                <li class="nav-item">
-                                <a href='{{ route('profile_post',['id' => Crypt::encrypt($user['id'])])}}'  class="nav-link">
-                                    <div class="nav-field">Posts</div>
-                                    <div class="nav-value">{{ $num_of_posts }}</div>
-                                </a>
-                                </li>
+                                @if($role->label != '3')
+                                    <li class="nav-item">
+                                    <a href='{{ route('profile_post',['id' => Crypt::encrypt($user['id'])])}}'  class="nav-link">
+                                        <div class="nav-field">Posts</div>
+                                        <div class="nav-value">{{ $num_of_posts }}</div>
+                                    </a>
+                                    </li>
+                                @endif
                                 <!--show following and follower  -->
                                 <li class="nav-item">
                                     <a href='{{ route('followers_list',['id' => Crypt::encrypt($user['id'])]) }}' class="nav-link">

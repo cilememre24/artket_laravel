@@ -2,12 +2,8 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-        @include('navbar')
-        @include('partials.vote')
-        @include('partials.scripts')
-        @include('partials.spam_post')
-        @include('partials.repost')
-        @include('partials.delete_post')
+
+
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
         <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
@@ -20,6 +16,14 @@
 
 	</head>
 	<body class="is-preload">
+
+        @include('navbar')
+
+        @include('partials.scripts')
+        @include('partials.vote')
+        @include('partials.spam_post')
+        @include('partials.repost')
+        @include('partials.delete_post')
 
     <section class="ftco-section">
 		<div class="container">
@@ -44,7 +48,7 @@
 
                             <header>
                                 <div class="title">
-                                    <h2><a href="#">{{ $post['title'] }} (VOTE: {{ $vote }}%)</a></h2>
+                                    <h2><a href="#">{{ $post['title'] }} (VOTE: {{ round($vote,2) }}%)</a></h2>
                                     <p>{{ $post['description'] }}</p>
                                 </div>
 

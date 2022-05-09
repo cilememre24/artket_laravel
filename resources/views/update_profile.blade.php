@@ -2,15 +2,15 @@
 <html>
 
 <head>
-  @include('partials.scripts')
-  @include('partials.change_password')
+
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="{{ asset('css/update_profile.css') }}">
 
 </head>
 
 <body>
-
+  @include('partials.scripts')
+  @include('partials.change_password')
   <div class="container rounded bg-white mt-5">
     <div id = "info_box" class="row">
         <div class="col-md-4 border-right">

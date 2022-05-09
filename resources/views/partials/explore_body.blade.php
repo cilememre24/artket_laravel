@@ -21,6 +21,9 @@
           <a href="{{ route('go_to_post', ['id' => Crypt::encrypt($post['id'])])}}">
             <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> More </a>
           </div>
+          {{-- <div class="text-center">
+            <h1 style="font-size: 64px" class="card-title title">{{ round($post->average,2) }}%</h1>
+          </div> --}}
         </div>
       </div>
     @endforeach

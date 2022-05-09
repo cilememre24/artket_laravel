@@ -80,6 +80,7 @@
 
     </body>
 
+
     <script>
       function show_permission_form() {
       var form = document.getElementById("newPermissionForm");

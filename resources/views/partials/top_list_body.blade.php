@@ -30,7 +30,7 @@
                                         <strong>{{ $post->title }}</strong>
                                         <span>{{ $post->description }}</span>
                                         <div class="postcard__bar"></div>
-                                        <h6><i>Vote: {{ $post->value }}</i></h6>
+                                        <h6><i>Vote: {{round($post->average,2)  }}</i></h6>
                                     </div>
 
                                     <i class="fas fa-angle-double-right"></i>

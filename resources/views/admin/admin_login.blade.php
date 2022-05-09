@@ -18,7 +18,7 @@
 
     <title>ADMIN LOGIN</title>
   </head>
-  <body>
+  <body style="background-color: #536044;">
     
 
     <div class="container register">
@@ -40,15 +40,23 @@
                   <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                       <h3 class="register-heading">ADMIN LOGIN</h3>
                       <div class="row register-form">
+                        <div class="col-md-12">
+                          @if (session()->has('message'))
+                          <div class="alert alert-danger alert-dismissible fade show">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            <span><b> {{ session()->get('message') }} </b></span>
+                          </div>
+                          @endif
+                      </div>
 	                    <form action="{{ route('admin_sign_in')}}" method="POST" enctype="multipart/form-data">
                             @csrf
-                          <div class="col-md-6">
+                          <div class="col-md-12">
 
                             <div class="form-group">
-                                <input type="email" placeholder="Email" name="email" required>
+                                <input  class="form-control" type="email" placeholder="Email" name="email" required>
 			                      </div>
                               <div class="form-group">
-				                      <input type="password" placeholder="Password" name="password" required>
+				                      <input class="form-control" type="password" placeholder="Password" name="password" required>
                             </div>
 
                           </div>

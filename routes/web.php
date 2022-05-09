@@ -9,6 +9,7 @@ use App\Http\Controllers\TopListController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\UpdateProfileController;
 
@@ -21,6 +22,7 @@ use App\Http\Controllers\TagManagementController;
 use App\Http\Controllers\TopListManagementController;
 use App\Http\Controllers\CommentManagementController;
 use App\Http\Controllers\ContactManagementController;
+use App\Http\Controllers\AdminLoginController;
 use App\Http\Controllers\AdminDashboardController;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -96,9 +98,6 @@ Route::get('/followings/{id}', [ProfileController::class, 'view_followings_list'
 
 Route::get('/report_user/{message}/{id}', [ProfileController::class, 'report_user'])->name('report_user');
 
-//SEARCH USER
-
-Route::get('demos/autocompleteajax','ProfileController@autoCompleteAjax');
 
 //UPDATE_PROFILE CONTROLLER
 Route::get('update_profile', [UpdateProfileController::class , 'index'])->name('update_profile')->middleware(CheckPermission::class);
@@ -109,10 +108,16 @@ Route::post('/update_cp', [UpdateProfileController::class , 'change_password'])-
 Route::get('/contact', [ContactController::class, 'index'])->name('contact')->middleware(CheckPermission::class);
 Route::post('/contact_message', [ContactController::class, 'send_message'])->name('contact_message');
 
+//SEARCH CONTROLLER
+Route::get('/user_search', [SearchController::class, 'index'])->name('user_search');
+Route::post('/user_search', [SearchController::class, 'search']);
+
+
 //-----------------------------------------ADMIN PART------------------------------------------------
 
 //ADMİN LOGIN CONTROLLER
 Route::get('/admin_login', [AdminLoginController::class, 'index'])->name('admin_login');
+Route::get('/admin_logout', [AdminLoginController::class, 'admin_logout'])->name('admin_logout');
 Route::post('/admin_login', [AdminLoginController::class, 'admin_sign_in'])->name('admin_sign_in');
 
 //USER MANAGEMENT CONTROLLER

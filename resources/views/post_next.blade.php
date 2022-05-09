@@ -2,9 +2,7 @@
 
 <html>
 	<head>
-        @include('navbar')
-        @include('partials.vote')
-		@include('partials.scripts')
+
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 
@@ -16,6 +14,9 @@
         <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 	</head>
 	<body class="single is-preload">
+		@include('navbar')
+        @include('partials.vote')
+		@include('partials.scripts')
 		<section class="ftco-section">
 			<div class="container">
 				<nav class="navbar navbar-expand-lg ftco_navbar ftco-navbar-light" style="height:max-content;" id="ftco-navbar">
@@ -43,7 +44,7 @@
                             	@endforeach
 								<footer class="post_footer">
 									<ul class="actions">
-										<li><a onclick="location.href='{{ route('go_to_post', ['id' => $post['id']])}}'" class="button large">Return the post</a></li>
+										<li><a onclick="location.href='{{ route('go_to_post', ['id' => Crypt::encrypt($post->id)])}}'" class="button large">Return the post</a></li>
 									</ul>
 									<ul class="actions">
 										<li><a onclick="makeVisible('comments')" class="button medium">Show Comments</a></li>

@@ -15,16 +15,28 @@ class SignUpController extends Controller
 
     public function add_user(Request $request){
 
-        $img_name = $request -> profile_image -> getClientOriginalName();
-        $img_path = 'images/' . $img_name;
-        $username = $request -> username;
-        $email = $request -> email;
-        $first_name = $request -> first_name;
-        $last_name = $request -> last_name;
-        $password = $request -> password;
-        $gender = $request -> gender;
+        if($request -> profile_image){
+            $img_name = $request -> profile_image -> getClientOriginalName();
+            $img_path = 'images/' . $img_name;
+            $username = $request -> username;
+            $email = $request -> email;
+            $first_name = $request -> first_name;
+            $last_name = $request -> last_name;
+            $password = $request -> password;
+            $gender = $request -> gender;
+    
+            $upload=$request -> profile_image -> move(public_path('images'),$img_name);
+        }else{
+            $img_name="image";
+            $img_path = 'images/anonymous.jpg';
+            $username = $request -> username;
+            $email = $request -> email;
+            $first_name = $request -> first_name;
+            $last_name = $request -> last_name;
+            $password = $request -> password;
+            $gender = $request -> gender;
 
-        $upload=$request -> profile_image -> move(public_path('images'),$img_name);
+        }
 
         $user=UserModel::create([
             "username" => $username,
@@ -97,7 +109,6 @@ class SignUpController extends Controller
             }
         }
 
-        return back();
-
+        return view('sign_in');
     }
 }

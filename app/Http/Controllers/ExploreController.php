@@ -14,11 +14,11 @@ class ExploreController extends Controller
     public function index(){
 
         $data=DB::table('posts')
-        ->join('votes', 'votes.post_id', '=', 'posts.id')
-        ->select('posts.*','votes.value')
+        ->leftJoin('votes', 'votes.post_id', '=', 'posts.id')
+        ->select('posts.*', 'votes.post_id', DB::raw( 'AVG( votes.value ) as average' ))
+        ->groupBy('posts.id')
         ->inRandomOrder()
         ->get();
-
 
         return view('explore',['posts' => $data]);
     }

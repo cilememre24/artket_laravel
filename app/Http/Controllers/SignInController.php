@@ -18,17 +18,23 @@ class SignInController extends Controller
         $email = $request -> email;
         $password = $request -> password;
 
-        $user=DB::table('users') -> where("email","$email")->where("password","$password")->get();
-
-        if($user->isEmpty()){
-            return redirect('/sign_in');
-            
+        if(DB::table('users') -> where("email","$email")->get()->isEmpty()){
+            return redirect()->back()->with('message','Wrong Email!'); 
+        }else if(DB::table('users') -> where("email","$email")->where("password","$password")->get()->isEmpty()){
+            return redirect()->back()->with('message','Wrong Pasword!');
         }else{
-            foreach($user as $key => $data){
-                session(['current_user_id' => $data->id]);
-            }
+            $user=DB::table('users') -> where("email","$email")->where("password","$password")->get();
             
-            return redirect('/explore');
+            if($user->isEmpty()){
+                return redirect('/sign_in');
+                
+            }else{
+                foreach($user as $key => $data){
+                    session(['current_user_id' => $data->id]);
+                }
+                
+                return redirect('/explore');
+            }
         }
 
     }

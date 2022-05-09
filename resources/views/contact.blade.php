@@ -2,8 +2,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-    @include('navbar')
-    @include('partials.scripts')
+
   	<title>Contact</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -15,7 +14,8 @@
 
 	</head>
     <body style="background-color: #536044">
-
+        @include('navbar')
+        @include('partials.scripts')
     <section class="ftco-section">
 		<div class="container">
             <div class="col-md-16">

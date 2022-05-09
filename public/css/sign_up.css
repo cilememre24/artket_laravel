@@ -1,9 +1,9 @@
 body{
-    background-image: url("red-green-background.jpg");
+    background-color: #536044;
  }
  
  .register{
-    background: -webkit-linear-gradient(left, #687A4B, #d0ecc3);
+    background: -webkit-linear-gradient(left, #536044, #d0f4bf);
     margin-top: 3%;
     padding: 3%;
  }
@@ -59,8 +59,8 @@ body{
     border: none;
     border-radius: 1.5rem;
     padding: 5%;
-    background-color: #C77951;
-    color: #fff;
+    background-color: #5c361a;
+    color: rgb(235, 233, 233);
     font-weight: 600;
     width: 50%;
  }

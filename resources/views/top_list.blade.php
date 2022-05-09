@@ -1,8 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-    @include('navbar')
-    @include('partials.scripts')
+
   	<title>Top List</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -19,7 +18,8 @@
 
 	</head>
   <body style="background-color: #536044">
-
+    @include('navbar')
+    @include('partials.scripts')
   <section class="ftco-section">
 		<div class="container">
 			<nav class="navbar navbar-expand-lg ftco_navbar ftco-navbar-light text-center" id="ftco-navbar">
@@ -79,7 +79,7 @@
                                                   <strong>{{ $post->title }}</strong>
                                                   <a href='{{ route('profile',['id' => Crypt::encrypt($post->user_id) ])}}'> <span style="font-size:13px;">by {{  $post->first_name  }} {{ $post->last_name }}</span></a>
                                                   <div style="display: flex" class="postcard__bar"></div>
-                                                  <h6><i>Vote: {{ $post->value }}</i></h6>
+                                                  <h6><i>Vote: {{ round($post->average,2) }}</i></h6>
                                                 </div>
                                                 </a>
 

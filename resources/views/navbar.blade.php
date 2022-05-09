@@ -55,7 +55,7 @@ input:focus{
     <div class="container">
         <nav class="navbar navbar-expand-lg ftco_navbar ftco-navbar-light" id="ftco-navbar">
         <div class="container">
-            <a class="navbar-brand" href='{{ route('explore')}}'><img style="margin-top: -21px;height: 57px;width: 134px;" src="{{ asset('art_logo.png')}}" width="125" height="81"/></a>
+            <a class="navbar-brand" href='{{ route('explore')}}'><img style="margin-top: -21px;height: 50px;width: 134px;" src="{{ asset('art_logo.png')}}" width="125" height="81"/></a>
             <div class="social-media order-lg-last">
                 <p class="mb-0 d-flex">
 
@@ -64,6 +64,7 @@ input:focus{
                     <a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-twitter"><i class="sr-only">Twitter</i></span></a>
                     <a href="https://www.instagram.com/artketcom/" class="d-flex align-items-center justify-content-center"><span class="fa fa-instagram"><i class="sr-only">Instagram</i></span></a> --}}
 
+                    <a href="{{ route('user_search')}}" class="d-flex align-items-center justify-content-center"><span class="fa fa-user"><i class="sr-only">User Search</i></span><span class="fa fa-search"><i class="sr-only">User Search</i></span></a>
                     <a href="{{ route('chat')}}" class="d-flex align-items-center justify-content-center"><span class="fa fa-paper-plane"><i class="sr-only">Direct Message</i></span></a>
                     <a href="{{ route('logout')}}" class="d-flex align-items-center justify-content-center"><span class="fa fa-sign-out"><i class="sr-only">Log Out</i></span></a>
                 </p>
@@ -73,25 +74,6 @@ input:focus{
           </button>
           <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto mr-md-3">
-                {{-- <li class="nav-item">
-                  <div style="position: relative;">
-                      <svg style="  position: absolute;
-                      top: 4px;
-                      left: 15px;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-                      </svg>
-                      <input style="    height: 25px;
-                      margin-top: 15px;
-                      background-color: #efefef;
-                      color: #8e8e8e;
-                      font-size: 15px;
-                      padding: 0 16px;
-                      font-weight: 300;
-                      cursor: text;
-                      padding-left: 40px;
-                  " type="text" autocomplete="off" name="search_box" id="search" class="form-control input-lg" placeholder="Search Here" />
-                  </div>
-                </li> --}}
                 <li class="nav-item {{ 'explore' == request()->path() ? 'active' : '' }}"><a href='{{ route('explore')}}' class="nav-link">Explore</a></li>
                 <li class="nav-item {{ 'top_list' == request()->path() ? 'active' : '' }}"><a href='{{ route('top_list')}}' class="nav-link">Top List</a></li>
                 <li class="nav-item {{ 'contact' == request()->path() ? 'active' : '' }}"><a href='{{ route('contact')}}' class="nav-link">Contact</a></li>

@@ -179,28 +179,6 @@ class ProfileController extends Controller
          'visiter_followings_list'=> $visiter_followings_list,'following_list'=> $following_list,'role'=>$role]);
     }
 
-    public function autoCompleteAjax(Request $request)
-    {
-        $search=  $request->term;
-        
-        $users = UserModel::where('username','LIKE',"%{$search}%")
-                       ->limit(5)->get();
-
-        if(!$users->isEmpty())
-        {
-            foreach($users as $user)
-            {
-                
-                $new_row['title']= $user->username;
-	            $new_row['image']= Helper::catch_first_image($user->profile_picture);
-                $new_row['url']= url('profile/'.Crypt::encrypt($user->id));
-                
-                $row_set[] = $new_row; //build an array
-            }
-        }
-        
-        echo json_encode($row_set); 
-    }
 
     public function report_user($message,$id){
 
